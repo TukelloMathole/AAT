@@ -5,7 +5,7 @@
     using System.Linq;
     using System.Threading;
 
-Code-Block: "using" Directives
+## Code-Block: "using" Directives
 This block includes necessary namespaces for handling collections (Concurrent, Collections.Generic), file operations (IO), LINQ (Linq), and threading (Threading).
 
     class Program
@@ -24,3 +24,25 @@ global variables:
 globalList: A thread-safe queue (ConcurrentQueue<int>) to store integers.
 oddCount: Counter for odd integers processed.
 evenCount: Counter for even integers processed.
+
+
+    static void Main(string[] args)
+    {
+        Console.WriteLine("starting program");
+    
+        // Create and start threads
+    
+        // This thread to add random odd numbers
+        Thread oddThread = new Thread(AddRandomOddNumbers);
+    
+        // This thread to add negative prime numbers
+        Thread primeThread = new Thread(AddNegativePrimes);
+    
+        // This thread to add random even numbers
+        Thread evenThread = new Thread(AddRandomEvenNumbers);
+    
+        // Start thread for adding random odd numbers
+        oddThread.Start();
+    
+        // Start thread for adding negative prime numbers
+        primeThread.Start();
