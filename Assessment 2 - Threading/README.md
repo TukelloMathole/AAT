@@ -111,4 +111,127 @@ Serializes sortedList to binary and XML files using SerializeToBinary and Serial
 
     Console.ReadLine(); // Keep console open
 
+# Code-Block: AddRandomOddNumbers Method
+Generates random odd numbers (num % 2 != 0) and adds them to globalList until it reaches 1,000,000 items.
+
+    // Method to add random odd numbers to globalList
+    static void AddRandomOddNumbers()
+    {
+        Random rand = new Random();
+        // Continue adding numbers until globalList reaches 1,000,000 items
+        while (globalList.Count < 1000000)
+        {
+            // Generating random number
+            int num = rand.Next(1, int.MaxValue);
+            // Check if the number is odd
+            if (num % 2 != 0)
+                globalList.Enqueue(num); // Add the odd number to globalList
+        }
+    }
+
+
+# Code-Block: AddNegativePrimes Method
+Explanation: Adds negative prime numbers (isPrime function checks primality) to globalList until it reaches 1,000,000 items.
+
+    // Method to add negative prime numbers to globalList
+    static void AddNegativePrimes()
+    {
+        int num = 2;
+        // Check if a number is prime
+        bool isPrime(int n)
+        {
+            if (n <= 1) return false;
+            if (n <= 3) return true;
+            if (n % 2 == 0 || n % 3 == 0) return false;
+            int i = 5;
+            while (i * i <= n)
+            {
+                if (n % i == 0 || n % (i + 2) == 0)
+                    return false;
+                i += 6;
+            }
+            return true;
+        }
+        // Continue adding negative prime numbers until globalList reaches 1,000,000 items
+        while (globalList.Count < 1000000)
+        {
+            // Check if the current number is prime
+            if (isPrime(num))
+                globalList.Enqueue(-num); // Adding the negative prime number to globalList
+            num++;
+        }
+    }
+
+
+# Code-Block: AddRandomEvenNumbers Method
+Explanation: Generates random even numbers (num % 2 == 0) and adds them to globalList until it reaches 1,000,000 items.
+
+
+    // Method to add random even numbers to globalList
+    static void AddRandomEvenNumbers()
+    {
+        Random rand = new Random();
+        // Continue adding numbers until globalList reaches 1,000,000 items
+        while (globalList.Count < 1000000)
+        {
+            // Generate a random even number
+            int num = rand.Next(2, int.MaxValue); // Starting from 2 to ensure even numbers
+            if (num % 2 == 0)
+                globalList.Enqueue(num); // Adding the even number to globalList
+        }
+    }
+
+
+# Code-Block: SerializeToBinary Method
+Explanation: Converts each integer in list to a byte array (BitConverter.GetBytes) in parallel, then writes byte arrays to globalList.bin using a FileStream.
+
+
+    // Method to serialize a list of integers to a binary file
+    static void SerializeToBinary(List<int> list)
+    {
+        // Concurrent to store byte arrays representing each integer
+        var segments = new ConcurrentBag<byte[]>();
+        // Converting each integer in the list to a byte array in parallel
+        Parallel.ForEach(list, num =>
+        {
+            var buffer = BitConverter.GetBytes(num);
+            segments.Add(buffer);// Adding the byte array to segments
+        });
+        // Writing all byte arrays from segments to a binary file
+        using (FileStream fs = new FileStream("globalList.bin", FileMode.Create))
+        {
+            foreach (var segment in segments)
+            {
+                fs.Write(segment, 0, segment.Length); // Write the byte array to the file stream
+            }
+        }
+    }
+
+
+
+
+# Code-Block: SerializeToXml Method
+Explanation: Writes each integer in list to globalList.xml within a lock (lockObject) to ensure thread safety using StreamWriter. Uses Parallel.ForEach for parallel iteration.
+
+    // Method to serialize a list of integers to an XML file
+    static void SerializeToXml(List<int> list)
+    {
+        object lockObject = new object(); // Object used for locking
+        // Write to globalList.xml using StreamWriter
+        using (StreamWriter sw = new StreamWriter("globalList.xml"))
+        {
+            sw.WriteLine("<GlobalList>");// Write the opening tag for GlobalList
+            // Iterating through the list in parallel and write each number within a lock
+            Parallel.ForEach(list, num =>
+            {
+                lock (lockObject)// Lock to ensure thread safety when writing to StreamWriter
+                {
+                    sw.WriteLine($"  <Number>{num}</Number>");// Write the number within Number tags
+                }
+            });
+    
+            sw.WriteLine("</GlobalList>");// Write the closing tag for GlobalList
+        }
+    }
+
 
