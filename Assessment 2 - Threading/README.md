@@ -17,8 +17,9 @@ This block includes necessary namespaces for handling collections (Concurrent, C
         // Counter for the number of even integers processed
         static int evenCount = 0;
 
-Block: Global Variables
-Explanation: Defines global variables:
+Code-Block: Global Variables
+
+global variables:
 
 globalList: A thread-safe queue (ConcurrentQueue<int>) to store integers.
 oddCount: Counter for odd integers processed.
