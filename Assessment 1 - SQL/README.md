@@ -62,14 +62,20 @@ Code Snippet:
 
 
 
-Explanation of Changes:
-
 Parameterized Queries:
-        I changed the INSERT query to use parameters (@msisdn and @message). This approach is safer against SQL injection attacks and can improve performance by reusing query execution plans.
-        (@msisdn and @message) - is used to dynamically insert the value. It also Helps prevent SQL injection attacks by separating SQL logic from user input, Promotes efficient query execution by allowing SQL Server to optimize the execution plan and reuse cached queries and improves code readability and maintainability by clearly separating SQL structure from data values.
+
+    I changed the INSERT query to use parameters (@msisdn and @message). This approach is safer against SQL injection attacks and can improve performance by reusing query execution plans.
+
+(@msisdn and @message) - is used to dynamically insert the value. It also Helps prevent SQL injection attacks by separating SQL logic from user input, Promotes efficient query execution by allowing SQL Server to optimize the execution plan and reuse cached queries and improves code readability and maintainability by clearly separating SQL structure from data values.
+
 Batch Inserts:
-        I used a batch size (batchSize) to reduce the number of trips to the database. Instead of executing each insert individually.
+
+    I used a batch size (batchSize) to reduce the number of trips to the database. Instead of executing each insert individually.
+
 Connection Management:
-        I moved the SqlConnection outside of the loop that iterates over results to reuse the same connection throughout the batch insertion process.
+
+    I moved the SqlConnection outside of the loop that iterates over results to reuse the same connection throughout the batch insertion process.
+
 Thread Safety:
-        I ensured thread-safe access to the results list when merging data from parallel queries using a lock statement around the results. This prevents concurrency issues when multiple threads modify the list simultaneously.
+
+    I ensured thread-safe access to the results list when merging data from parallel queries using a lock statement around the results. This prevents concurrency issues when multiple threads modify the list simultaneously.
