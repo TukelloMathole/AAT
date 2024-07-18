@@ -17,7 +17,7 @@ This block includes necessary namespaces for handling collections (Concurrent, C
         // Counter for the number of even integers processed
         static int evenCount = 0;
 
-Code-Block: Global Variables
+## Code-Block: Global Variables
 
 global variables:
 
