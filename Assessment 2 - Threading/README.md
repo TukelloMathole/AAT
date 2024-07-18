@@ -48,3 +48,50 @@ evenCount: Counter for even integers processed.
         primeThread.Start();
 ## Code-Block: Main Method - Thread Initialization
 Sets up and starts three threads (oddThread, primeThread, evenThread) to generate random odd numbers, negative prime numbers, and random even numbers respectively. Each thread runs concurrently to populate globalList.
+
+
+        while (globalList.Count < 250000)
+        {
+            Thread.Sleep(100); // Sleep for 100 milliseconds before checking again
+        }
+        
+        // Start thread for adding negative prime numbers
+        evenThread.Start();
+        
+        while (globalList.Count != 1000000)
+        {
+            Thread.Sleep(100); // Sleep for 100 milliseconds before checking again
+        }
+        
+        // Stoping all threads
+        oddThread.Join();
+        primeThread.Join();
+        evenThread.Join();
+
+## Code-Block: Main Method - Thread Execution Control
+Waits until globalList reaches specific counts (250,000 and 1,000,000) before starting and stopping threads. Uses Thread.Sleep for polling and Thread.Join for synchronization.
+
+
+       // Sorting the global list
+        List<int> sortedList = globalList.ToList();
+        sortedList.Sort();
+    
+        // Count odd and even numbers
+        // Iterate through sortedList in parallel
+        Parallel.ForEach(sortedList, num =>
+        {
+            // Check if the number is even
+            if (num % 2 == 0)
+            {
+                // Increment evenCount atomically using Interlocked.Increment
+                Interlocked.Increment(ref evenCount);
+            }
+            else
+            {
+                // Increment oddCount atomically using Interlocked.Increment
+                Interlocked.Increment(ref oddCount);
+            }
+        });
+
+## Code-Block: Main Method - Processing
+Explanation: Sorts globalList, then counts odd and even numbers using Parallel.ForEach for parallel iteration. Uses Interlocked.Increment for thread-safe increments of oddCount and evenCount.
