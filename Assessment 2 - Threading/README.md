@@ -46,3 +46,5 @@ evenCount: Counter for even integers processed.
     
         // Start thread for adding negative prime numbers
         primeThread.Start();
+## Code-Block: Main Method - Thread Initialization
+Sets up and starts three threads (oddThread, primeThread, evenThread) to generate random odd numbers, negative prime numbers, and random even numbers respectively. Each thread runs concurrently to populate globalList.
