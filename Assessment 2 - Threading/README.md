@@ -93,5 +93,20 @@ Waits until globalList reaches specific counts (250,000 and 1,000,000) before st
             }
         });
 
-## Code-Block: Main Method - Processing
+# Code-Block: Main Method - Processing
 Explanation: Sorts globalList, then counts odd and even numbers using Parallel.ForEach for parallel iteration. Uses Interlocked.Increment for thread-safe increments of oddCount and evenCount.
+
+    // Serialize to binary and XML files
+    SerializeToBinary(sortedList);
+    SerializeToXml(sortedList);
+
+    // Display results
+    Console.WriteLine($"Total items in global list: {sortedList.Count}");
+    Console.WriteLine($"Odd numbers: {oddCount}");
+    Console.WriteLine($"Even numbers: {evenCount}");
+    Console.WriteLine("Serialization completed.");
+
+    Console.ReadLine(); // Keep console open
+
+# Code-Block: Main Method - Serialization and Output
+Serializes sortedList to binary and XML files using SerializeToBinary and SerializeToXml methods. Displays counts of total items, odd numbers, and even numbers processed. Keeps console open with Console.ReadLine().
