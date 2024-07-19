@@ -1,0 +1,54 @@
+/* /Layout/MainLayout.razor.rz.scp.css */
+/* MainLayout.razor.css */
+.topbar[b-8bdtzjo98q] {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.content[b-8bdtzjo98q] {
+    margin-top: 60px; /* Adjust based on the height of your top bar */
+    padding: 20px;
+}
+/* /Layout/NavMenu.razor.rz.scp.css */
+/* NavMenu.razor.css */
+.navbar-nav[b-qs2l8zz5bg] {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.nav-item[b-qs2l8zz5bg] {
+    margin-right: 20px;
+}
+
+.nav-link[b-qs2l8zz5bg] {
+    color: white;
+    text-decoration: none;
+}
+
+    .nav-link:hover[b-qs2l8zz5bg] {
+        background-color: #111;
+    }
+
+.collapse[b-qs2l8zz5bg] {
+    display: none;
+}
+
+@media (max-width: 600px) {
+    .navbar-nav[b-qs2l8zz5bg] {
+        flex-direction: column;
+    }
+
+    .nav-item[b-qs2l8zz5bg] {
+        margin-right: 0;
+    }
+
+    .nav-link[b-qs2l8zz5bg] {
+        padding: 10px;
+    }
+}

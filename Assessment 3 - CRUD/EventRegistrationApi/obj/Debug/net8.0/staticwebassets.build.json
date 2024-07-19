@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "JYwVuicDccv2yktu6aygZy1jHJswmB97PWe7OVZmbQo=",
+  "Source": "EventRegistrationApi",
+  "BasePath": "_content/EventRegistrationApi",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

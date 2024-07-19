@@ -1,0 +1,65 @@
+﻿@page "/"
+
+<PageTitle>Event Registration</PageTitle>
+
+<div class="bg-gray-50 min-h-screen flex flex-col">
+    <header class="bg-blue-600 text-white py-16 flex flex-col items-center">
+        <h1 class="text-5xl font-bold mb-4">Welcome to EventRegistrationApp</h1>
+        <p class="text-lg mb-6">Your gateway to seamless event registration.</p>
+        <button class="bg-yellow-500 text-blue-900 font-bold py-3 px-6 rounded-lg shadow-lg hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition duration-300" @onclick="NavigateToRegister">
+            Register Now
+        </button>
+    </header>
+
+    <main class="flex-grow py-16 px-4">
+        <section class="text-center mb-16">
+            <button class="inline-flex items-center px-8 py-4 border border-transparent text-lg font-medium rounded-lg shadow-lg text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-2 focus:ring-blue-600 transition duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" fill="none" class="w-6 h-6 mr-2">
+                    <path d="M12 4v12m8-8l-8 8-8-8" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path>
+                </svg>
+                Download
+            </button>
+        </section>
+
+        <section class="text-center mb-16">
+            <h2 class="text-4xl font-bold mb-8">Why Choose Us?</h2>
+            <div class="flex flex-wrap justify-center gap-8">
+                <div class="max-w-xs bg-white shadow-lg rounded-lg p-6">
+                    <h3 class="text-2xl font-semibold mb-2">Easy Registration</h3>
+                    <p>Register for events with just a few clicks.</p>
+                </div>
+                <div class="max-w-xs bg-white shadow-lg rounded-lg p-6">
+                    <h3 class="text-2xl font-semibold mb-2">Secure Payments</h3>
+                    <p>Ensure your transactions are safe and secure.</p>
+                </div>
+                <div class="max-w-xs bg-white shadow-lg rounded-lg p-6">
+                    <h3 class="text-2xl font-semibold mb-2">Real-Time Updates</h3>
+                    <p>Stay informed with real-time event updates.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-gray-100 py-16">
+            <h2 class="text-4xl font-bold text-center mb-8">Upcoming Events</h2>
+            <ul class="max-w-3xl mx-auto list-none space-y-4">
+                <li class="text-lg">Event 1 - Date</li>
+                <li class="text-lg">Event 2 - Date</li>
+                <li class="text-lg">Event 3 - Date</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900 text-white py-4 text-center">
+        <p>&copy; 2024 EventRegistrationApp. All rights reserved.</p>
+    </footer>
+</div>
+
+@code {
+    private void NavigateToRegister()
+    {
+        NavigationManager.NavigateTo("/register");
+    }
+
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
+}

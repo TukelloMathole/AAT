@@ -1,0 +1,69 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\bin\\Debug\\net8.0\\wwwroot\\_framework\\blazor.webassembly.js",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js"
+    },
+    {
+      "Id": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\obj\\Debug\\net8.0\\compressed\\imcke9r6w7.gz",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js.gz"
+    },
+    {
+      "Id": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\obj\\Debug\\net8.0\\scopedcss\\bundle\\EventRegistrationApp.styles.css",
+      "PackagePath": "staticwebassets\\EventRegistrationApp.styles.css"
+    },
+    {
+      "Id": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\wwwroot\\css\\app.css",
+      "PackagePath": "staticwebassets\\css\\app.css"
+    },
+    {
+      "Id": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\wwwroot\\css\\output.css",
+      "PackagePath": "staticwebassets\\css\\output.css"
+    },
+    {
+      "Id": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\wwwroot\\css\\tailwind.css",
+      "PackagePath": "staticwebassets\\css\\tailwind.css"
+    },
+    {
+      "Id": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\wwwroot\\favicon.png",
+      "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\wwwroot\\icon-192.png",
+      "PackagePath": "staticwebassets\\icon-192.png"
+    },
+    {
+      "Id": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\wwwroot\\sample-data\\weather.json",
+      "PackagePath": "staticwebassets\\sample-data\\weather.json"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.EventRegistrationApp.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.EventRegistrationApp.props",
+      "PackagePath": "build\\EventRegistrationApp.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.EventRegistrationApp.props",
+      "PackagePath": "buildMultiTargeting\\EventRegistrationApp.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.EventRegistrationApp.props",
+      "PackagePath": "buildTransitive\\EventRegistrationApp.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
