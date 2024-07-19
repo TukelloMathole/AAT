@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "snu/MKCYRWhUoTyZrB/a9UBgr8G1CD3MBVcoZcXBkSo=",
+  "Hash": "6KzEdmN9rIX9Px6DkZM912Ou9kZ3QCag0og1m8iCjMk=",
   "Source": "EventRegistrationApp",
   "BasePath": "/",
   "Mode": "Root",
@@ -7883,6 +7883,25 @@
       "OriginalItemSpec": "wwwroot\\css\\output.css"
     },
     {
+      "Identity": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\wwwroot\\css\\style.css",
+      "SourceId": "EventRegistrationApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "css/style.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\style.css"
+    },
+    {
       "Identity": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\wwwroot\\css\\tailwind.css",
       "SourceId": "EventRegistrationApp",
       "SourceType": "Discovered",
@@ -7900,6 +7919,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\tailwind.css"
+    },
+    {
+      "Identity": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\wwwroot\\event.jpg",
+      "SourceId": "EventRegistrationApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "event.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\event.jpg"
     },
     {
       "Identity": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\wwwroot\\favicon.png",

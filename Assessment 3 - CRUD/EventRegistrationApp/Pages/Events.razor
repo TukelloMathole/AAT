@@ -1,0 +1,77 @@
+﻿@page "/events"
+
+<h3 class="text-4xl font-bold mb-8 text-center">Events</h3>
+
+<div class="mb-6 flex justify-center gap-4">
+    <!-- Search Bar -->
+    <input type="text" placeholder="Search events..." class="px-4 py-2 border border-gray-300 rounded-lg shadow-sm" />
+
+    <!-- Filter Dropdown -->
+    <select class="px-4 py-2 border border-gray-300 rounded-lg shadow-sm">
+        <option value="">All Categories</option>
+        <option value="Networking">Networking</option>
+        <option value="Workshops">Workshops</option>
+        <option value="Social">Social</option>
+    </select>
+</div>
+
+<!-- Category: Networking -->
+<section class="mb-12">
+    <h4 class="text-3xl font-bold mb-6">Networking</h4>
+    <div class="max-w-4xl mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        <!-- Example Event Card 1 -->
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 flex flex-col">
+            <img src="https://via.placeholder.com/500x300" alt="Event Title" class="w-full h-40 object-cover">
+            <div class="p-6 flex flex-col flex-grow">
+                <h3 class="text-2xl font-semibold mb-2">Event Title 1</h3>
+                <p class="text-gray-600 mb-4">Date: July 30, 2024</p>
+                <p class="text-gray-700 flex-grow">Join us for an exciting networking event...</p>
+                <button class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out mt-4">
+                    Book event
+                </button>
+            </div>
+        </div>
+        
+    </div>
+</section>
+
+<!-- Category: Workshops -->
+<section class="mb-12">
+    <h4 class="text-3xl font-bold mb-6">Workshops</h4>
+    <div class="max-w-4xl mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 flex flex-col">
+            <img src="https://via.placeholder.com/500x300" alt="Event Title" class="w-full h-40 object-cover">
+            <div class="p-6 flex flex-col flex-grow">
+                <h3 class="text-2xl font-semibold mb-2">Event Title 2</h3>
+                <p class="text-gray-600 mb-4">Date: August 15, 2024</p>
+                <p class="text-gray-700 flex-grow">An insightful workshop on advanced topics...</p>
+                <button class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out mt-4">
+                    Book event
+                </button>
+            </div>
+        </div>
+        
+    </div>
+</section>
+
+<!-- Category: Social -->
+<section class="mb-12">
+    <h4 class="text-3xl font-bold mb-6">Social</h4>
+    <div class="max-w-4xl mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+        
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 flex flex-col">
+            <img src="https://via.placeholder.com/500x300" alt="Event Title" class="w-full h-40 object-cover">
+            <div class="p-6 flex flex-col flex-grow">
+                <h3 class="text-2xl font-semibold mb-2">Event Title 3</h3>
+                <p class="text-gray-600 mb-4">Date: September 10, 2024</p>
+                <p class="text-gray-700 flex-grow">A fun social gathering with various activities...</p>
+                <button class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out mt-4">
+                    Book event
+                </button>
+            </div>
+        </div>
+        
+    </div>
+</section>
+

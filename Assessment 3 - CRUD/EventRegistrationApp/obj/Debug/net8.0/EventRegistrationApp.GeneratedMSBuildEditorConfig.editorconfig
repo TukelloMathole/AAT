@@ -26,8 +26,16 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/tukel/Desktop/AAT/Assessment 3 - CRUD/EventRegistrationApp/Pages/Admin.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW4ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/tukel/Desktop/AAT/Assessment 3 - CRUD/EventRegistrationApp/Pages/Counter.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tukel/Desktop/AAT/Assessment 3 - CRUD/EventRegistrationApp/Pages/Events.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRXZlbnRzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/tukel/Desktop/AAT/Assessment 3 - CRUD/EventRegistrationApp/Pages/Home.razor]

@@ -1,0 +1,79 @@
+﻿@page "/admin"
+<section class="mb-12">
+    <h2 class="text-3xl font-bold mb-6">Create Event</h2>
+    <form class="bg-white p-6 rounded-lg shadow-lg">
+        <div class="mb-4">
+            <label for="eventTitle" class="block text-gray-700 text-sm font-bold mb-2">Event Title:</label>
+            <input type="text" id="eventTitle" class="px-4 py-2 border border-gray-300 rounded-lg w-full" />
+        </div>
+        <div class="mb-4">
+            <label for="eventDate" class="block text-gray-700 text-sm font-bold mb-2">Event Date:</label>
+            <input type="date" id="eventDate" class="px-4 py-2 border border-gray-300 rounded-lg w-full" />
+        </div>
+        <div class="mb-4">
+            <label for="eventCategory" class="block text-gray-700 text-sm font-bold mb-2">Category:</label>
+            <select id="eventCategory" class="px-4 py-2 border border-gray-300 rounded-lg w-full">
+                <option value="Networking">Networking</option>
+                <option value="Workshops">Workshops</option>
+                <option value="Social">Social</option>
+            </select>
+        </div>
+        <div class="mb-4">
+            <label for="eventDescription" class="block text-gray-700 text-sm font-bold mb-2">Description:</label>
+            <textarea id="eventDescription" rows="4" class="px-4 py-2 border border-gray-300 rounded-lg w-full"></textarea>
+        </div>
+        <button type="submit" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out">
+            Create Event
+        </button>
+    </form>
+</section>
+
+<!-- Event List -->
+<section>
+    <h2 class="text-3xl font-bold mb-6">Event List</h2>
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+        <div class="mb-4 flex justify-between">
+            <input type="text" placeholder="Search events..." class="px-4 py-2 border border-gray-300 rounded-lg w-full md:w-1/2" />
+            <button class="ml-4 px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150 ease-in-out">
+                Add Event
+            </button>
+        </div>
+        <div class="max-w-4xl mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <!-- Example Event Card 1 -->
+            <div class="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 flex flex-col">
+                <img src="https://via.placeholder.com/500x300" alt="Event Title" class="w-full h-40 object-cover">
+                <div class="p-6 flex flex-col flex-grow">
+                    <h3 class="text-2xl font-semibold mb-2">Event Title 1</h3>
+                    <p class="text-gray-600 mb-4">Date: July 30, 2024</p>
+                    <p class="text-gray-700 flex-grow">Join us for an exciting event...</p>
+                    <div class="mt-4 flex gap-4">
+                        <button class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out">
+                            Edit
+                        </button>
+                        <button class="inline-flex items-center px-4 py-2 bg-red-600 transition ease-in-out delay-75 hover:bg-red-700 text-white text-sm font-medium rounded-md hover:-translate-y-1 hover:scale-110">
+                            <svg stroke="currentColor"
+                                 viewBox="0 0 24 24"
+                                 fill="none"
+                                 class="h-5 w-5 mr-2"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                                      stroke-width="2"
+                                      stroke-linejoin="round"
+                                      stroke-linecap="round"></path>
+                            </svg>
+
+                            Delete
+                        </button>
+
+                    </div>
+                </div>
+            </div>
+            <!-- Add more event cards here -->
+        </div>
+    </div>
+</section>
+
+
+@code {
+
+}

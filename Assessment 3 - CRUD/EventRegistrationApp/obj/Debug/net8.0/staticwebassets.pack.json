@@ -29,8 +29,16 @@
       "PackagePath": "staticwebassets\\css\\output.css"
     },
     {
+      "Id": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\wwwroot\\css\\style.css",
+      "PackagePath": "staticwebassets\\css\\style.css"
+    },
+    {
       "Id": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\wwwroot\\css\\tailwind.css",
       "PackagePath": "staticwebassets\\css\\tailwind.css"
+    },
+    {
+      "Id": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\wwwroot\\event.jpg",
+      "PackagePath": "staticwebassets\\event.jpg"
     },
     {
       "Id": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\wwwroot\\favicon.png",

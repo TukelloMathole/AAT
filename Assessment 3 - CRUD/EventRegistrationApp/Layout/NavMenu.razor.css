@@ -1,8 +1,22 @@
 /* NavMenu.razor.css */
-.navbar-nav {
+.top-row {
+    background-color: #343a40;
+}
+
+.navbar-brand {
+    color: white;
+}
+
+.navbar-toggler {
+    border: none;
+    background: transparent;
+}
+
+.nav-menu {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    background-color: #343a40;
 }
 
 .nav-item {
@@ -14,17 +28,35 @@
     text-decoration: none;
 }
 
-    .nav-link:hover {
-        background-color: #111;
-    }
+.nav-link:hover {
+    background-color: #111;
+    border-radius: 5px;
+}
 
 .collapse {
     display: none;
 }
 
+.show {
+    display: flex;
+    flex-direction: column;
+}
+
+@media (max-width: 1024px) {
+    .nav-menu {
+        display: none;
+    }
+
+    .navbar-toggler {
+        display: block;
+    }
+}
+
 @media (max-width: 600px) {
-    .navbar-nav {
+    .nav-menu {
+        display: flex;
         flex-direction: column;
+        width: 100%;
     }
 
     .nav-item {
