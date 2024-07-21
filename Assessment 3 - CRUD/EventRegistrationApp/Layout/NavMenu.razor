@@ -1,49 +1,35 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">EventRegistrationApp</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</div>
+﻿@inject IJSRuntime js
 
-<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
-    <nav class="navbar-nav flex-row">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="bi bi-house-door-fill-nav-menu" aria-hidden="true"></span> Home
+<div class="container mt-3">
+    <ul class="nav nav-pills mb-3 flex space-x-2" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <NavLink class="nav-link active custom-nav-link px-2 py-1 text-sm" href="" Match="NavLinkMatch.All" aria-controls="pills-home" aria-selected="false">
+                <span class="bi bi-house-door-fill-nav-menu text-lg" aria-hidden="true"></span> Home
             </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="bi bi-plus-square-fill-nav-menu" aria-hidden="true"></span> Counter
+        </li>
+        <li class="nav-item" role="presentation">
+            <NavLink class="nav-link custom-nav-link px-2 py-1 text-sm" href="events" aria-controls="pills-events" aria-selected="false">
+                <span class="bi bi-list-nested-nav-menu text-lg" aria-hidden="true"></span> Events
             </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="weather">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> Weather
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="events">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> events
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="admin">
-                <span class="bi bi-list-nested-nav-menu" aria-hidden="true"></span> admin
-            </NavLink>
-        </div>
-    </nav>
+        </li>
+        @if (!isLoggedIn)
+        {
+            <li class="nav-item" role="presentation">
+                <NavLink class="nav-link custom-nav-link px-2 py-1 text-sm" href="LogIn" aria-controls="pills-login" aria-selected="false">
+                    <span class="bi bi-person-nav-menu text-lg" aria-hidden="true"></span> LogIn
+                </NavLink>
+            </li>
+        }
+    </ul>
 </div>
 
 @code {
-    private bool collapseNavMenu = true;
+    private bool isLoggedIn;
 
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
+    protected override async Task OnInitializedAsync()
     {
-        collapseNavMenu = !collapseNavMenu;
+        // Check local storage to see if the user is logged in
+        var token = await js.InvokeAsync<string>("localStorage.getItem", "authToken");
+        isLoggedIn = !string.IsNullOrEmpty(token);
     }
 }

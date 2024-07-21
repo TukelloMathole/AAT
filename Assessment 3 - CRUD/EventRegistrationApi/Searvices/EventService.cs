@@ -43,4 +43,25 @@ public class EventService
             await _context.SaveChangesAsync();
         }
     }
+    public async Task<bool> BookEventAsync(int eventId, BookingModel bookingModel)
+    {
+        var eventToBook = await _context.Events.FindAsync(eventId);
+
+        if (eventToBook == null)
+        {
+            return false;
+        }
+
+        if (eventToBook.AvailableSeats < bookingModel.NumberOfTickets)
+        {
+            return false;
+        }
+
+        eventToBook.AvailableSeats -= bookingModel.NumberOfTickets;
+
+        _context.Events.Update(eventToBook);
+        await _context.SaveChangesAsync();
+
+        return true; // Booking successful
+    }
 }

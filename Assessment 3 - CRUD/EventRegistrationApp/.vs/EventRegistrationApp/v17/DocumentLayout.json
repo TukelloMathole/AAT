@@ -1,0 +1,139 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{38D3A91D-A420-4511-B830-897D0F9F4BFC}|EventRegistrationApp.csproj|c:\\users\\tukel\\desktop\\aat\\assessment 3 - crud\\eventregistrationapp\\pages\\admin.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{38D3A91D-A420-4511-B830-897D0F9F4BFC}|EventRegistrationApp.csproj|solutionrelative:pages\\admin.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38D3A91D-A420-4511-B830-897D0F9F4BFC}|EventRegistrationApp.csproj|c:\\users\\tukel\\desktop\\aat\\assessment 3 - crud\\eventregistrationapp\\pages\\login.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{38D3A91D-A420-4511-B830-897D0F9F4BFC}|EventRegistrationApp.csproj|solutionrelative:pages\\login.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38D3A91D-A420-4511-B830-897D0F9F4BFC}|EventRegistrationApp.csproj|c:\\users\\tukel\\desktop\\aat\\assessment 3 - crud\\eventregistrationapp\\wwwroot\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{38D3A91D-A420-4511-B830-897D0F9F4BFC}|EventRegistrationApp.csproj|solutionrelative:wwwroot\\css\\style.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38D3A91D-A420-4511-B830-897D0F9F4BFC}|EventRegistrationApp.csproj|c:\\users\\tukel\\desktop\\aat\\assessment 3 - crud\\eventregistrationapp\\searvices\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38D3A91D-A420-4511-B830-897D0F9F4BFC}|EventRegistrationApp.csproj|solutionrelative:searvices\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38D3A91D-A420-4511-B830-897D0F9F4BFC}|EventRegistrationApp.csproj|c:\\users\\tukel\\desktop\\aat\\assessment 3 - crud\\eventregistrationapp\\searvices\\customauthenticationstateprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38D3A91D-A420-4511-B830-897D0F9F4BFC}|EventRegistrationApp.csproj|solutionrelative:searvices\\customauthenticationstateprovider.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38D3A91D-A420-4511-B830-897D0F9F4BFC}|EventRegistrationApp.csproj|c:\\users\\tukel\\desktop\\aat\\assessment 3 - crud\\eventregistrationapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38D3A91D-A420-4511-B830-897D0F9F4BFC}|EventRegistrationApp.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{38D3A91D-A420-4511-B830-897D0F9F4BFC}|EventRegistrationApp.csproj|c:\\users\\tukel\\desktop\\aat\\assessment 3 - crud\\eventregistrationapp\\searvices\\apiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{38D3A91D-A420-4511-B830-897D0F9F4BFC}|EventRegistrationApp.csproj|solutionrelative:searvices\\apiservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 6,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LogIn.razor",
+              "DocumentMoniker": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\Pages\\LogIn.razor",
+              "RelativeDocumentMoniker": "Pages\\LogIn.razor",
+              "ToolTip": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\Pages\\LogIn.razor",
+              "RelativeToolTip": "Pages\\LogIn.razor",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACgAAAAMAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-21T17:23:38.442Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "ApiService.cs",
+              "DocumentMoniker": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\Searvices\\ApiService.cs",
+              "RelativeDocumentMoniker": "Searvices\\ApiService.cs",
+              "ToolTip": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\Searvices\\ApiService.cs",
+              "RelativeToolTip": "Searvices\\ApiService.cs",
+              "ViewState": "AQIAAC8AAAAAMzMzMzMjwCYAAAAEAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-21T17:20:29.812Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAACGAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-21T17:09:57.993Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CustomAuthenticationStateProvider.cs",
+              "DocumentMoniker": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\Searvices\\CustomAuthenticationStateProvider.cs",
+              "RelativeDocumentMoniker": "Searvices\\CustomAuthenticationStateProvider.cs",
+              "ToolTip": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\Searvices\\CustomAuthenticationStateProvider.cs",
+              "RelativeToolTip": "Searvices\\CustomAuthenticationStateProvider.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-21T17:07:40.874Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\Searvices\\AuthService.cs",
+              "RelativeDocumentMoniker": "Searvices\\AuthService.cs",
+              "ToolTip": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\Searvices\\AuthService.cs",
+              "RelativeToolTip": "Searvices\\AuthService.cs",
+              "ViewState": "AQIAAA8AAAAAODMzMzPjvw8AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-21T17:06:54.496Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "style.css",
+              "DocumentMoniker": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\wwwroot\\css\\style.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\style.css",
+              "ToolTip": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\wwwroot\\css\\style.css",
+              "RelativeToolTip": "wwwroot\\css\\style.css",
+              "ViewState": "AQIAACQAAAAAMzMzMzMbwDIAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2024-07-21T17:05:02.76Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Admin.razor",
+              "DocumentMoniker": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\Pages\\Admin.razor",
+              "RelativeDocumentMoniker": "Pages\\Admin.razor",
+              "ToolTip": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\Pages\\Admin.razor",
+              "RelativeToolTip": "Pages\\Admin.razor",
+              "ViewState": "AQIAALAAAAAAAAAAAAAowNEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2024-07-21T16:33:00.273Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

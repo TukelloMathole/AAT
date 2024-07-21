@@ -1,77 +1,107 @@
 ﻿@page "/events"
+@using EventRegistrationApp.Models
+@inject ApiService ApiService
+@inject NavigationManager Navigation
 
-<h3 class="text-4xl font-bold mb-8 text-center">Events</h3>
+<section class="bg-gray-50 py-5">
+    <h2 class="text-5xl font-extrabold text-center mb-12 text-gray-800">Upcoming Events</h2>
 
-<div class="mb-6 flex justify-center gap-4">
-    <!-- Search Bar -->
-    <input type="text" placeholder="Search events..." class="px-4 py-2 border border-gray-300 rounded-lg shadow-sm" />
+    <div class="mb-6 flex justify-center gap-4">
+        <!-- Search Bar -->
+        <input type="text" placeholder="Search events..." class="px-4 py-2 border border-gray-300 rounded-lg shadow-sm" @bind="searchQuery" @oninput="OnSearchQueryChanged" />
 
-    <!-- Filter Dropdown -->
-    <select class="px-4 py-2 border border-gray-300 rounded-lg shadow-sm">
-        <option value="">All Categories</option>
-        <option value="Networking">Networking</option>
-        <option value="Workshops">Workshops</option>
-        <option value="Social">Social</option>
-    </select>
-</div>
+        <!-- Filter Dropdown -->
+        <select class="px-4 py-2 border border-gray-300 rounded-lg shadow-sm" @bind="selectedCategory">
+            <option value="">All Categories</option>
+            @foreach (var category in Categories)
+            {
+                <option value="@category.CategoryName">@category.CategoryName</option>
+            }
+        </select>
+    </div>
 
-<!-- Category: Networking -->
-<section class="mb-12">
-    <h4 class="text-3xl font-bold mb-6">Networking</h4>
     <div class="max-w-4xl mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        <!-- Example Event Card 1 -->
-        <div class="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 flex flex-col">
-            <img src="https://via.placeholder.com/500x300" alt="Event Title" class="w-full h-40 object-cover">
-            <div class="p-6 flex flex-col flex-grow">
-                <h3 class="text-2xl font-semibold mb-2">Event Title 1</h3>
-                <p class="text-gray-600 mb-4">Date: July 30, 2024</p>
-                <p class="text-gray-700 flex-grow">Join us for an exciting networking event...</p>
-                <button class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out mt-4">
-                    Book event
-                </button>
-            </div>
-        </div>
-        
+        @if (events == null)
+        {
+            <p><em>Loading...</em></p>
+        }
+        else if (FilteredEvents.Any() == false)
+        {
+            <p><em>No upcoming events</em></p>
+        }
+        else
+        {
+            @foreach (var eventItem in FilteredEvents)
+            {
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 flex flex-col">
+                    <!-- <img src="@eventItem.Image" alt="@eventItem.EventName" class="w-full h-40 object-cover"> -->
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-2xl font-semibold mb-2">@eventItem.EventName</h3>
+                        <p class="text-gray-600 mb-2">Date: @eventItem.EventDate.ToString("d MMM yyyy")</p>
+                        <p class="text-gray-600 mb-2">Location: @eventItem.Location</p>
+                        <p class="text-gray-600 mb-2">Time: @eventItem.EventTime</p>
+                        <p class="text-gray-600 mb-4">Available Seats: @eventItem.AvailableSeats</p>
+                        <p class="text-gray-700 flex-grow">@eventItem.Description</p>
+                        <button @onclick="() => BookEvent(eventItem.EventId)" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out mt-4">
+                            Book Now
+                        </button>
+                    </div>
+                </div>
+            }
+        }
     </div>
 </section>
 
-<!-- Category: Workshops -->
-<section class="mb-12">
-    <h4 class="text-3xl font-bold mb-6">Workshops</h4>
-    <div class="max-w-4xl mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        
-        <div class="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 flex flex-col">
-            <img src="https://via.placeholder.com/500x300" alt="Event Title" class="w-full h-40 object-cover">
-            <div class="p-6 flex flex-col flex-grow">
-                <h3 class="text-2xl font-semibold mb-2">Event Title 2</h3>
-                <p class="text-gray-600 mb-4">Date: August 15, 2024</p>
-                <p class="text-gray-700 flex-grow">An insightful workshop on advanced topics...</p>
-                <button class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out mt-4">
-                    Book event
-                </button>
-            </div>
-        </div>
-        
-    </div>
-</section>
+@code {
+    private List<MyDataType> events = new();
+    private string searchQuery = "";
+    private string selectedCategory = "";
+    private List<CategoryModel> Categories = new();
+    private CancellationTokenSource debounceCancellationTokenSource = new();
 
-<!-- Category: Social -->
-<section class="mb-12">
-    <h4 class="text-3xl font-bold mb-6">Social</h4>
-    <div class="max-w-4xl mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-        
-        <div class="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 flex flex-col">
-            <img src="https://via.placeholder.com/500x300" alt="Event Title" class="w-full h-40 object-cover">
-            <div class="p-6 flex flex-col flex-grow">
-                <h3 class="text-2xl font-semibold mb-2">Event Title 3</h3>
-                <p class="text-gray-600 mb-4">Date: September 10, 2024</p>
-                <p class="text-gray-700 flex-grow">A fun social gathering with various activities...</p>
-                <button class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out mt-4">
-                    Book event
-                </button>
-            </div>
-        </div>
-        
-    </div>
-</section>
+    private IEnumerable<MyDataType> FilteredEvents =>
+        events.Where(e => (string.IsNullOrEmpty(selectedCategory) || e.Category == selectedCategory) &&
+                          (string.IsNullOrEmpty(searchQuery) ||
+                           e.EventName.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                           e.EventDate.ToString("d MMM yyyy").Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                           e.Location.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                           e.EventTime.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                           e.AvailableSeats.ToString().Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                           e.Description.Contains(searchQuery, StringComparison.OrdinalIgnoreCase)));
 
+    protected override async Task OnInitializedAsync()
+    {
+        // Fetch events and categories
+        events = await ApiService.GetDataAsync();
+        Categories = await ApiService.GetCategoriesAsync();
+    }
+
+    private async Task OnSearchQueryChanged(ChangeEventArgs e)
+    {
+        searchQuery = e.Value.ToString();
+
+        // Cancel previous debounce task
+        debounceCancellationTokenSource.Cancel();
+        debounceCancellationTokenSource.Dispose();
+        debounceCancellationTokenSource = new CancellationTokenSource();
+
+        var token = debounceCancellationTokenSource.Token;
+
+        try
+        {
+            // Delay before applying the search filter
+            await Task.Delay(300, token);
+            StateHasChanged();
+        }
+        catch (TaskCanceledException)
+        {
+            // Task was canceled, no action needed
+        }
+    }
+
+    private async Task BookEvent(int eventId)
+    {
+        // Redirect to booking page with the eventId
+        Navigation.NavigateTo($"/book-event/{eventId}");
+    }
+}

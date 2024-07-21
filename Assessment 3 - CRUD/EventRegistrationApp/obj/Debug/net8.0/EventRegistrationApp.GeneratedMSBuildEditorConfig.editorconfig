@@ -30,8 +30,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQWRtaW4ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tukel/Desktop/AAT/Assessment 3 - CRUD/EventRegistrationApp/Pages/Counter.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
+[C:/Users/tukel/Desktop/AAT/Assessment 3 - CRUD/EventRegistrationApp/Pages/BookNowComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQm9va05vd0NvbXBvbmVudC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/tukel/Desktop/AAT/Assessment 3 - CRUD/EventRegistrationApp/Pages/EditComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRWRpdENvbXBvbmVudC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/tukel/Desktop/AAT/Assessment 3 - CRUD/EventRegistrationApp/Pages/Events.razor]
@@ -42,8 +46,8 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/tukel/Desktop/AAT/Assessment 3 - CRUD/EventRegistrationApp/Pages/Weather.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcV2VhdGhlci5yYXpvcg==
+[C:/Users/tukel/Desktop/AAT/Assessment 3 - CRUD/EventRegistrationApp/Pages/LogIn.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9nSW4ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/tukel/Desktop/AAT/Assessment 3 - CRUD/EventRegistrationApp/_Imports.razor]

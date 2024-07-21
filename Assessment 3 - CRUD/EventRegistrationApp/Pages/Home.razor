@@ -1,4 +1,7 @@
 ﻿@page "/"
+@inject NavigationManager Navigation
+@inject ApiService ApiService
+@using EventRegistrationApp.Models
 
 <PageTitle>Event Registration</PageTitle>
 
@@ -18,50 +21,37 @@
         <section class="bg-gray-50 py-5">
             <h2 class="text-5xl font-extrabold text-center mb-12 text-gray-800">Upcoming Events</h2>
             <div class="max-w-4xl mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                <div class="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 flex flex-col">
-                    <img src="/path/to/actual-event-image1.jpg" alt="Exciting Event 1 Image" class="w-full h-40 object-cover">
-                    <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="text-2xl font-semibold mb-2">Exciting Event 1</h3>
-                        <p class="text-gray-600 mb-2">Date: July 30, 2024</p>
-                        <p class="text-gray-600 mb-2">Location: Grand Hall, City Center</p>
-                        <p class="text-gray-600 mb-2">Time: 10:00 AM - 4:00 PM</p>
-                        <p class="text-gray-600 mb-4">Available Seats: 50</p>
-                        <p class="text-gray-700 flex-grow">Join us for an exciting event filled with engaging activities and opportunities to network. Keynote speakers include industry leaders who will share their insights.</p>
-                        <button class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out mt-4">
-                            Register Now
-                        </button>
-                    </div>
-                </div>
-                <div class="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 flex flex-col">
-                    <img src="/path/to/actual-event-image2.jpg" alt="Inspiring Event 2 Image" class="w-full h-40 object-cover">
-                    <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="text-2xl font-semibold mb-2">Inspiring Event 2</h3>
-                        <p class="text-gray-600 mb-2">Date: August 15, 2024</p>
-                        <p class="text-gray-600 mb-2">Location: Conference Center, Downtown</p>
-                        <p class="text-gray-600 mb-2">Time: 9:00 AM - 5:00 PM</p>
-                        <p class="text-gray-600 mb-4">Available Seats: 75</p>
-                        <p class="text-gray-700 flex-grow">An inspiring event with keynote speakers and breakout sessions designed to enhance your skills and knowledge in the field.</p>
-                        <button class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out mt-4">
-                            Register Now
-                        </button>
-                    </div>
-                </div>
-                <div class="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 flex flex-col">
-                    <img src="/path/to/actual-event-image3.jpg" alt="Memorable Event 3 Image" class="w-full h-40 object-cover">
-                    <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="text-2xl font-semibold mb-2">Memorable Event 3</h3>
-                        <p class="text-gray-600 mb-2">Date: September 10, 2024</p>
-                        <p class="text-gray-600 mb-2">Location: Open Air Park</p>
-                        <p class="text-gray-600 mb-2">Time: 2:00 PM - 8:00 PM</p>
-                        <p class="text-gray-600 mb-4">Available Seats: 30</p>
-                        <p class="text-gray-700 flex-grow">A memorable event with entertainment, networking, and opportunities to connect with industry leaders and peers in a relaxed setting.</p>
-                        <button class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out mt-4">
-                            Register Now
-                        </button>
-                    </div>
-                </div>
-            </div>
+                @if (events == null)
+                {
+                    <p><em>Loading...</em></p>
+                }
+                else if (events.Count == 0)
+                {
+                    <p><em>No upcoming events</em></p>
+                }
+                else
+                {
+                    @foreach (var eventItem in events)
+                    {
+                        <div class="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 flex flex-col">
+                            @* <img src="@eventItem.Image" alt="@eventItem.EventName" class="w-full h-40 object-cover"> *@
+                            <div class="p-6 flex flex-col flex-grow">
+                                <h3 class="text-2xl font-semibold mb-2">@eventItem.EventName</h3>
+                                <p class="text-gray-600 mb-2">Date: @eventItem.EventDate.ToString("d MMM yyyy")</p>
+                                <p class="text-gray-600 mb-2">Location: @eventItem.Location</p>
+                                <p class="text-gray-600 mb-2">Time: @eventItem.EventTime</p>
+                                <p class="text-gray-600 mb-4">Available Seats: @eventItem.AvailableSeats</p>
+                                <p class="text-gray-700 flex-grow">@eventItem.Description</p>
+                                <button @onclick="() => BookEvent(eventItem.EventId)" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out mt-4">
+                                    Book Now
+                                </button>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>  
         </section>
+
 
 
 
@@ -172,10 +162,23 @@
 </div>
 
 @code {
+    private List<MyDataType> events;
+
+    protected override async Task OnInitializedAsync()
+    {
+        events = await ApiService.GetDataAsync();
+    }
     private void NavigateToRegister()
     {
         NavigationManager.NavigateTo("/register");
     }
+
+    private async Task BookEvent(int eventId)
+    {
+        // Redirect to booking page with the eventId
+        Navigation.NavigateTo($"/book-event/{eventId}");
+    }
+
 
     [Inject]
     private NavigationManager NavigationManager { get; set; }

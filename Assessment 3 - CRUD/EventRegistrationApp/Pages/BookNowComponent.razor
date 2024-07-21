@@ -1,0 +1,99 @@
+﻿@page "/book-event/{EventId:int}"
+@using EventRegistrationApp.Models
+@inject ApiService ApiService
+@inject NavigationManager NavigationManager
+
+<h2 class="text-2xl font-bold mb-6">Book Event</h2>
+
+@if (eventDetails == null)
+{
+    <p><em>Loading event details...</em></p>
+}
+else
+{
+    <div class="bg-white p-6 rounded-lg shadow-lg mb-6">
+        <h3 class="text-2xl font-semibold mb-2">@eventDetails.EventName</h3>
+        <p class="text-gray-600 mb-2">Date: @eventDetails.EventDate.ToString("d MMM yyyy")</p>
+        <p class="text-gray-600 mb-2">Location: @eventDetails.Location</p>
+        <p class="text-gray-600 mb-2">Time: @eventDetails.EventTime</p>
+        <p class="text-gray-600 mb-4">Available Seats: @eventDetails.AvailableSeats</p>
+        <p class="text-gray-700">@eventDetails.Description</p>
+    </div>
+
+    <EditForm Model="@bookingModel" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="bg-white p-6 rounded-lg shadow-lg">
+            <div class="mb-4">
+                <label for="fullName" class="block text-sm font-medium text-gray-700">Full Name</label>
+                <InputText id="fullName" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" @bind-Value="bookingModel.FullName" />
+                <ValidationMessage For="@(() => bookingModel.FullName)" />
+            </div>
+
+            <div class="mb-4">
+                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                <InputText id="email" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" @bind-Value="bookingModel.Email" />
+                <ValidationMessage For="@(() => bookingModel.Email)" />
+            </div>
+
+            <div class="mb-4">
+                <label for="phoneNumber" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                <InputText id="phoneNumber" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" @bind-Value="bookingModel.PhoneNumber" />
+                <ValidationMessage For="@(() => bookingModel.PhoneNumber)" />
+            </div>
+
+            <div class="mb-4">
+                <label for="numberOfTickets" class="block text-sm font-medium text-gray-700">Number of Tickets</label>
+                <InputNumber id="numberOfTickets" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" @bind-Value="bookingModel.NumberOfTickets" />
+                <ValidationMessage For="@(() => bookingModel.NumberOfTickets)" />
+            </div>
+
+            <div class="mb-4">
+                <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    Book Now
+                </button>
+                <button type="button" @onclick="CancelBooking" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-100">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </EditForm>
+}
+
+@code {
+    [Parameter] public int EventId { get; set; }
+    private BookingModel bookingModel = new();
+    private EventModel eventDetails;
+    private string errorMessage;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Fetch event details based on EventId
+        eventDetails = await ApiService.GetEventByIdAsync(EventId);
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        // Handle booking submission
+        var response = await ApiService.BookEventAsync(EventId, bookingModel);
+
+        if (response.IsSuccessStatusCode)
+        {
+            // Notify user of success and redirect
+            NavigationManager.NavigateTo("/events");
+        }
+        else
+        {
+            // Handle error
+            errorMessage = await response.Content.ReadAsStringAsync();
+            Console.WriteLine($"Error booking event: {errorMessage}");
+            // Optionally display errorMessage to the user
+        }
+    }
+
+    private void CancelBooking()
+    {
+        NavigationManager.NavigateTo("/events");
+    }
+}

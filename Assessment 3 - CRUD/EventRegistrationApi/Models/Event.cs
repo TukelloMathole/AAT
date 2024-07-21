@@ -10,7 +10,6 @@
         public int AvailableSeats { get; set; }
         public string Description { get; set; }
         public string Category { get; set; }
-        public byte[] Image { get; set; }
     }
 
 }

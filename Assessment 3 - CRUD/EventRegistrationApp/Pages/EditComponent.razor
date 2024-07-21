@@ -1,0 +1,105 @@
+﻿@page "/edit-event/{EventId:int}"
+@using EventRegistrationApp.Models
+@inject ApiService ApiService
+@inject NavigationManager NavigationManager
+
+<h2 class="text-2xl font-bold mb-6">Edit Event</h2>
+
+<EditForm Model="@eventToEdit" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+        <div class="mb-4">
+            <label for="eventName" class="block text-sm font-medium text-gray-700">Event Name</label>
+            <InputText id="eventName" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" @bind-Value="eventToEdit.EventName" />
+            <ValidationMessage For="@(() => eventToEdit.EventName)" />
+        </div>
+
+        <div class="mb-4">
+            <label for="eventDate" class="block text-sm font-medium text-gray-700">Event Date</label>
+            <InputDate id="eventDate" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" @bind-Value="eventToEdit.EventDate" />
+            <ValidationMessage For="@(() => eventToEdit.EventDate)" />
+        </div>
+
+        <div class="mb-4">
+            <label for="eventTime" class="block text-sm font-medium text-gray-700">Event Time</label>
+            <InputText id="eventTime" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" @bind-Value="eventToEdit.EventTime" />
+            <ValidationMessage For="@(() => eventToEdit.EventTime)" />
+        </div>
+
+        <div class="mb-4">
+            <label for="location" class="block text-sm font-medium text-gray-700">Location</label>
+            <InputText id="location" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" @bind-Value="eventToEdit.Location" />
+            <ValidationMessage For="@(() => eventToEdit.Location)" />
+        </div>
+
+        <div class="mb-4">
+            <label for="category" class="block text-sm font-medium text-gray-700">Category</label>
+            <InputText id="category" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" @bind-Value="eventToEdit.Category" />
+            <ValidationMessage For="@(() => eventToEdit.Category)" />
+        </div>
+
+        <div class="mb-4">
+            <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+            <InputTextArea id="description" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" @bind-Value="eventToEdit.Description" />
+            <ValidationMessage For="@(() => eventToEdit.Description)" />
+        </div>
+
+        <div class="mb-4">
+            <label for="availableSeats" class="block text-sm font-medium text-gray-700">Available Seats</label>
+            <InputNumber id="availableSeats" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm" @bind-Value="eventToEdit.AvailableSeats" />
+            <ValidationMessage For="@(() => eventToEdit.AvailableSeats)" />
+        </div>
+
+        <div class="mb-4">
+            <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                Save Changes
+            </button>
+            <button type="button" @onclick="CancelEdit" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-100">
+                Cancel
+            </button>
+        </div>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter] public int EventId { get; set; }
+    private EventModel eventToEdit = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        eventToEdit = await ApiService.GetEventByIdAsync(EventId);
+    }
+
+    private async Task HandleValidSubmit()
+    {
+        var content = new MultipartFormDataContent();
+        content.Add(new StringContent(eventToEdit.EventId.ToString()), "EventId");
+        content.Add(new StringContent(eventToEdit.EventName), "EventName");
+        content.Add(new StringContent(eventToEdit.EventDate.ToString("yyyy-MM-ddTHH:mm:ss")), "EventDate");
+        content.Add(new StringContent(eventToEdit.Location), "Location");
+        content.Add(new StringContent(eventToEdit.EventTime), "EventTime");
+        content.Add(new StringContent(eventToEdit.AvailableSeats.ToString()), "AvailableSeats");
+        content.Add(new StringContent(eventToEdit.Description), "Description");
+        content.Add(new StringContent(eventToEdit.Category), "Category");
+
+        var response = await ApiService.UpdateEventAsync(eventToEdit.EventId, content);
+
+        if (response.IsSuccessStatusCode)
+        {
+            NavigationManager.NavigateTo("/admin"); // Redirect to event list or any other page
+        }
+        else
+        {
+            // Handle the error response
+            var error = await response.Content.ReadAsStringAsync();
+            Console.WriteLine($"Error updating event: {error}");
+        }
+    }
+
+    private void CancelEdit()
+    {
+        NavigationManager.NavigateTo("/admin"); // Redirect to event list or any other page
+    }
+}

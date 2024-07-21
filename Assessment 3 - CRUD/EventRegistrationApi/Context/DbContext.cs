@@ -7,6 +7,8 @@ public class AppDbContext : DbContext
     {
     }
     public DbSet<Event> Events { get; set; }
+    public DbSet<BookingModel> Bookings { get; set; }
+    public DbSet<CategoryModel> Categories { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -21,8 +23,11 @@ public class AppDbContext : DbContext
             entity.Property(e => e.EventName).IsRequired().HasMaxLength(100);
             entity.Property(e => e.Description).HasMaxLength(500);
 
-            // Define BLOB field configuration
-            /*entity.Property(e => e.Image).HasColumnType("BLOB");*/
+            modelBuilder.Entity<CategoryModel>(entity =>
+            {
+                entity.HasKey(c => c.CategoryId);
+                entity.Property(c => c.CategoryName).IsRequired().HasMaxLength(100);
+            });
         });
     }
 }

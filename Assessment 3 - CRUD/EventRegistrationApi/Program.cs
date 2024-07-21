@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using EventRegistrationApi.Models; // Ensure this namespace matches where AppDbContext is defined
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,11 +11,11 @@ builder.Services.AddControllers();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowSpecificOrigins",
-        builder =>
+        policyBuilder =>
         {
-            builder.WithOrigins("https://localhost:7161")
-                   .AllowAnyHeader()
-                   .AllowAnyMethod();
+            policyBuilder.WithOrigins("https://localhost:7161")
+                         .AllowAnyHeader()
+                         .AllowAnyMethod();
         });
 });
 builder.Services.AddEndpointsApiExplorer();
@@ -30,16 +31,12 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseRouting();
 
-app.UseCors("AllowSpecificOrigins");
+app.UseCors("AllowSpecificOrigins"); // Ensure CORS is applied after routing but before authorization
 
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();
-});
+app.MapControllers(); // Directly map controllers in .NET 6+
 
 app.Run();

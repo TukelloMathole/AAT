@@ -1,79 +1,209 @@
 ﻿@page "/admin"
-<section class="mb-12">
-    <h2 class="text-3xl font-bold mb-6">Create Event</h2>
-    <form class="bg-white p-6 rounded-lg shadow-lg">
-        <div class="mb-4">
-            <label for="eventTitle" class="block text-gray-700 text-sm font-bold mb-2">Event Title:</label>
-            <input type="text" id="eventTitle" class="px-4 py-2 border border-gray-300 rounded-lg w-full" />
-        </div>
-        <div class="mb-4">
-            <label for="eventDate" class="block text-gray-700 text-sm font-bold mb-2">Event Date:</label>
-            <input type="date" id="eventDate" class="px-4 py-2 border border-gray-300 rounded-lg w-full" />
-        </div>
-        <div class="mb-4">
-            <label for="eventCategory" class="block text-gray-700 text-sm font-bold mb-2">Category:</label>
-            <select id="eventCategory" class="px-4 py-2 border border-gray-300 rounded-lg w-full">
-                <option value="Networking">Networking</option>
-                <option value="Workshops">Workshops</option>
-                <option value="Social">Social</option>
-            </select>
-        </div>
-        <div class="mb-4">
-            <label for="eventDescription" class="block text-gray-700 text-sm font-bold mb-2">Description:</label>
-            <textarea id="eventDescription" rows="4" class="px-4 py-2 border border-gray-300 rounded-lg w-full"></textarea>
-        </div>
-        <button type="submit" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out">
-            Create Event
-        </button>
-    </form>
+@inject NavigationManager Navigation
+@inject IJSRuntime js
+@using EventRegistrationApp.Models
+@inject ApiService ApiService
+
+<section class="mb-6">
+    <button @onclick="Logout" class="inline-flex items-center px-6 py-3 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-150 ease-in-out">
+        Log Out
+    </button>
 </section>
 
-<!-- Event List -->
+<section class="mb-8">
+    <h2 class="text-xl font-semibold mb-4">Create Event</h2>
+    <EditForm Model="newEvent" OnValidSubmit="HandleValidSubmit" class="bg-white p-4 rounded-lg shadow-md w-1/2 mx-auto">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div class="mb-3">
+            <label for="eventName" class="block text-gray-700 text-xs font-medium mb-1">Event Title:</label>
+            <InputText id="eventName" class="px-3 py-1 border border-gray-300 rounded-md w-full text-xs" @bind-Value="newEvent.EventName" />
+        </div>
+        <div class="mb-3">
+            <label for="eventDate" class="block text-gray-700 text-xs font-medium mb-1">Event Date:</label>
+            <InputDate id="eventDate" class="px-3 py-1 border border-gray-300 rounded-md w-full text-xs" @bind-Value="newEvent.EventDate" />
+        </div>
+        <div class="mb-3">
+            <label for="eventLocation" class="block text-gray-700 text-xs font-medium mb-1">Location:</label>
+            <InputText id="eventLocation" class="px-3 py-1 border border-gray-300 rounded-md w-full text-xs" @bind-Value="newEvent.Location" />
+        </div>
+        <div class="mb-3">
+            <label for="eventTime" class="block text-gray-700 text-xs font-medium mb-1">Event Time:</label>
+            <InputText id="eventTime" class="px-3 py-1 border border-gray-300 rounded-md w-full text-xs" @bind-Value="newEvent.EventTime" />
+        </div>
+        <div class="mb-3">
+            <label for="availableSeats" class="block text-gray-700 text-xs font-medium mb-1">Available Seats:</label>
+            <InputNumber id="availableSeats" class="px-3 py-1 border border-gray-300 rounded-md w-full text-xs" @bind-Value="newEvent.AvailableSeats" />
+        </div>
+        <div class="mb-3">
+            <label for="eventCategory" class="block text-gray-700 text-xs font-medium mb-1">Category:</label>
+            <select id="eventCategory" class="px-4 py-2 border border-gray-300 rounded-lg shadow-sm" @bind="newEvent.Category">
+                <option value="">All Categories</option>
+                @foreach (var category in Categories)
+                {
+                    <option value="@category.CategoryName">@category.CategoryName</option>
+                }
+            </select>
+            
+        </div>
+        <div class="mb-3">
+            <label for="eventDescription" class="block text-gray-700 text-xs font-medium mb-1">Description:</label>
+            <InputTextArea id="eventDescription" rows="3" class="px-3 py-1 border border-gray-300 rounded-md w-full text-xs" @bind-Value="newEvent.Description" />
+        </div>
+        
+        <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-xs font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out">
+            Create Event
+        </button>
+    </EditForm>
+</section>
+
 <section>
-    <h2 class="text-3xl font-bold mb-6">Event List</h2>
+    <h2 class="text-2xl font-bold mb-6">Event List</h2>
     <div class="bg-white p-6 rounded-lg shadow-lg">
         <div class="mb-4 flex justify-between">
-            <input type="text" placeholder="Search events..." class="px-4 py-2 border border-gray-300 rounded-lg w-full md:w-1/2" />
-            <button class="ml-4 px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition duration-150 ease-in-out">
-                Add Event
-            </button>
+            <input type="text" placeholder="Search events..." class="px-4 py-2 border border-gray-300 rounded-lg shadow-sm" @bind="searchQuery" @oninput="OnSearchQueryChanged" />
+
+            <select id="eventCategory" class="px-4 py-2 border border-gray-300 rounded-lg shadow-sm" @bind="selectedCategory">
+                <option value="">All Categories</option>
+                @foreach (var category in Categories)
+                {
+                    <option value="@category.CategoryName">@category.CategoryName</option>
+                }
+            </select>
         </div>
+
         <div class="max-w-4xl mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-            <!-- Example Event Card 1 -->
-            <div class="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 flex flex-col">
-                <img src="https://via.placeholder.com/500x300" alt="Event Title" class="w-full h-40 object-cover">
-                <div class="p-6 flex flex-col flex-grow">
-                    <h3 class="text-2xl font-semibold mb-2">Event Title 1</h3>
-                    <p class="text-gray-600 mb-4">Date: July 30, 2024</p>
-                    <p class="text-gray-700 flex-grow">Join us for an exciting event...</p>
-                    <div class="mt-4 flex gap-4">
-                        <button class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out">
-                            Edit
-                        </button>
-                        <button class="inline-flex items-center px-4 py-2 bg-red-600 transition ease-in-out delay-75 hover:bg-red-700 text-white text-sm font-medium rounded-md hover:-translate-y-1 hover:scale-110">
-                            <svg stroke="currentColor"
-                                 viewBox="0 0 24 24"
-                                 fill="none"
-                                 class="h-5 w-5 mr-2"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                                      stroke-width="2"
-                                      stroke-linejoin="round"
-                                      stroke-linecap="round"></path>
-                            </svg>
-
-                            Delete
-                        </button>
-
+            @foreach (var ev in FilteredEvents)
+            {
+                <div class="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 flex flex-col">
+                    <img src="https://via.placeholder.com/500x300" alt="@ev.EventName" class="w-full h-40 object-cover">
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold mb-2">@ev.EventName</h3>
+                        <p class="text-gray-600 mb-4 text-sm">Date: @ev.EventDate.ToString("MMMM d, yyyy")</p>
+                        <p class="text-gray-700 flex-grow text-sm">@ev.Description</p>
+                        <div class="mt-4 flex gap-4">
+                            <button @onclick="() => EditEvent(ev)" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out">
+                                Edit
+                            </button>
+                            <button @onclick="() => DeleteEvent(ev.EventId)" class="inline-flex items-center px-4 py-2 bg-red-600 transition ease-in-out delay-75 hover:bg-red-700 text-white text-xs font-medium rounded-md hover:-translate-y-1 hover:scale-110">
+                                <svg stroke="currentColor" viewBox="0 0 24 24" fill="none" class="h-5 w-5 mr-2" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"></path>
+                                </svg>
+                                Delete
+                            </button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- Add more event cards here -->
+            }
         </div>
     </div>
 </section>
 
-
 @code {
+    private EventModel newEvent = new EventModel();
+    private IBrowserFile selectedImage;
 
+    private async Task HandleValidSubmit()
+    {
+        if (newEvent == null)
+        {
+            Console.WriteLine("Event data is not provided.");
+            return;
+        }
+
+        var content = new MultipartFormDataContent
+        {
+            { new StringContent(newEvent.EventName), "EventName" },
+            { new StringContent(newEvent.EventDate.ToString("yyyy-MM-ddTHH:mm:ss")), "EventDate" },
+            { new StringContent(newEvent.Location), "Location" },
+            { new StringContent(newEvent.EventTime), "EventTime" },
+            { new StringContent(newEvent.AvailableSeats.ToString()), "AvailableSeats" },
+            { new StringContent(newEvent.Description), "Description" },
+            { new StringContent(newEvent.Category), "Category" }
+        };
+
+        var response = await ApiService.CreateEventAsync(content);
+        if (response.IsSuccessStatusCode)
+        {
+            // Handle success (e.g., show a message or redirect)
+        }
+        else
+        {
+            // Handle error
+        }
+    }
+
+    private List<MyDataType> events = new();
+    private string searchQuery = "";
+    private string selectedCategory = "";
+    private List<CategoryModel> Categories = new();
+    private CancellationTokenSource debounceCancellationTokenSource = new CancellationTokenSource();
+
+    private IEnumerable<MyDataType> FilteredEvents =>
+        events.Where(e => (string.IsNullOrEmpty(selectedCategory) || e.Category == selectedCategory) &&
+                          (string.IsNullOrEmpty(searchQuery) ||
+                           e.EventName.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                           e.EventDate.ToString("MMMM d, yyyy").Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                           e.Location.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                           e.EventTime.Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                           e.AvailableSeats.ToString().Contains(searchQuery, StringComparison.OrdinalIgnoreCase) ||
+                           e.Description.Contains(searchQuery, StringComparison.OrdinalIgnoreCase)));
+
+    protected override async Task OnInitializedAsync()
+    {
+        Categories = await ApiService.GetCategoriesAsync();
+        var token = await js.InvokeAsync<string>("localStorage.getItem", "authToken");
+        if (string.IsNullOrEmpty(token))
+        {
+            Navigation.NavigateTo("/login");
+        }
+        else
+        {
+            events = await ApiService.GetDataAsync();
+        }
+    }
+
+    private async Task EditEvent(MyDataType eventToEdit)
+    {
+        Navigation.NavigateTo($"/edit-event/{eventToEdit.EventId}");
+    }
+
+    private async Task DeleteEvent(int eventId)
+    {
+        bool confirmed = await js.InvokeAsync<bool>("confirm", "Are you sure you want to delete this event?");
+        if (confirmed)
+        {
+            await ApiService.DeleteEventAsync(eventId);
+            events = await ApiService.GetDataAsync();
+        }
+    }
+
+    private async Task OnSearchQueryChanged(ChangeEventArgs e)
+    {
+        searchQuery = e.Value.ToString();
+
+        debounceCancellationTokenSource?.Cancel();
+        debounceCancellationTokenSource?.Dispose();
+        debounceCancellationTokenSource = new CancellationTokenSource();
+
+        var token = debounceCancellationTokenSource.Token;
+
+        try
+        {
+            await Task.Delay(300, token);
+            StateHasChanged();
+        }
+        catch (TaskCanceledException)
+        {
+            // Task was canceled, no action needed
+        }
+    }
+
+    private async Task Logout()
+    {
+        await js.InvokeVoidAsync("localStorage.removeItem", "authToken");
+        Navigation.NavigateTo("/login");
+    }
 }
+
