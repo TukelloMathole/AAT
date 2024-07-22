@@ -5,31 +5,31 @@ Code Snippet:
 
       string sql = $"SELECT TOP 1000000 * FROM received WHERE status = 1 ORDER BY re_ref";
 
-// List of SQL nodes to query
-IEnumerable<IConfigurationSection> SqlNodes = Program.Configuration.GetSection("ConnectionStrings").GetSection("SqlNodes").GetChildren();
-
-// Merged result set
-List<received> results = new List<received>();
-
-// Using Parallel.ForEach to concurrently query databases
-Parallel.ForEach(SqlNodes, Node =>
-{
-    received[] result = DBQuery<received>.Query(Node.Value, sql); // Internal function to query DB and return results
-    lock (results) // Ensure thread-safe access to results list
-    {
-        results.AddRange(result);
-    }
-});
-
-// Batch insert into 'received_total' table
-const int batchSize = 1000; // Batch size for inserting records
-string insertQuery = @"INSERT INTO received_total (rt_msisdn, rt_message) VALUES (@msisdn, @message)";
-List<received> batch = new List<received>(); // List to hold the current batch of records
-
-// Establishing the database connection
-using (SqlConnection connection = new SqlConnection(ConnectionString))
-{
-    connection.Open();
+      // List of SQL nodes to query
+      IEnumerable<IConfigurationSection> SqlNodes = Program.Configuration.GetSection("ConnectionStrings").GetSection("SqlNodes").GetChildren();
+      
+      // Merged result set
+      List<received> results = new List<received>();
+      
+      // Using Parallel.ForEach to concurrently query databases
+      Parallel.ForEach(SqlNodes, Node =>
+      {
+          received[] result = DBQuery<received>.Query(Node.Value, sql); // Internal function to query DB and return results
+          lock (results) // Ensure thread-safe access to results list
+          {
+              results.AddRange(result);
+          }
+      });
+      
+      // Batch insert into 'received_total' table
+      const int batchSize = 1000; // Batch size for inserting records
+      string insertQuery = @"INSERT INTO received_total (rt_msisdn, rt_message) VALUES (@msisdn, @message)";
+      List<received> batch = new List<received>(); // List to hold the current batch of records
+      
+      // Establishing the database connection
+      using (SqlConnection connection = new SqlConnection(ConnectionString))
+      {
+          connection.Open();
     
     using (SqlCommand command = new SqlCommand())
     {
