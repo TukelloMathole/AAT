@@ -1,37 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{38D3A91D-A420-4511-B830-897D0F9F4BFC}|EventRegistrationApp.csproj|c:\\users\\tukel\\desktop\\aat\\assessment 3 - crud\\eventregistrationapp\\pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{38D3A91D-A420-4511-B830-897D0F9F4BFC}|EventRegistrationApp.csproj|solutionrelative:pages\\home.razor||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "Home.razor",
-              "DocumentMoniker": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\Pages\\Home.razor",
-              "RelativeDocumentMoniker": "Pages\\Home.razor",
-              "ToolTip": "C:\\Users\\tukel\\Desktop\\AAT\\Assessment 3 - CRUD\\EventRegistrationApp\\Pages\\Home.razor",
-              "RelativeToolTip": "Pages\\Home.razor",
-              "ViewState": "AQIAAKUAAAAA0MzMzMwMwK4AAAA5AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2024-07-22T11:35:02.789Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
+      "DocumentGroups": []
     }
   ]
 }

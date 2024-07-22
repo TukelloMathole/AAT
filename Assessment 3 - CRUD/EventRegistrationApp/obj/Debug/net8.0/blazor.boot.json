@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "EventRegistrationApp",
   "resources": {
-    "hash": "sha256-BVJVteSHFyE8D/yoPiUjV4k+1vEPhcKQ9gxdpzRJYBg=",
+    "hash": "sha256-NbYijXtjVRVosEOjIKI3aZqDbtThemlx/BfSlxz0Zes=",
     "jsModuleNative": {
       "dotnet.native.8.0.5.u5n36ijfwm.js": "sha256-boyHe+0RMZDkzBKGhsrnXPhPg3oZ6UqJnTUzngJPjNY="
     },
@@ -40,8 +40,11 @@
       "Microsoft.Extensions.FileSystemGlobbing.wasm": "sha256-AnWUKd0qJ8ZNKkRC0AFK2cjjszB7reXiP+bXdIi8bic=",
       "Microsoft.Extensions.Logging.wasm": "sha256-Rx+UwnmyfTtMmlYd3HWJOvYVnSSwShUKrbPvqkfxmZk=",
       "Microsoft.Extensions.Logging.Abstractions.wasm": "sha256-AL42sVLgQf/nX/uHvd/OHfIFwLq3fRt9qn4/jnfJ2CM=",
+      "Microsoft.Extensions.Logging.Configuration.wasm": "sha256-OmLzArB+/ChfPSCclC9jPl8ju8VNzfdPjN/Y7GRniYA=",
+      "Microsoft.Extensions.Logging.Console.wasm": "sha256-heZX+Vu0EmnbTC7BWtu7WX1KdI77rAwS9LHYk12NayQ=",
       "Microsoft.Extensions.ObjectPool.wasm": "sha256-yN/YwcJojmFmoiBEEYT4EioSwZ0GQpHJnZJ+qVozBHs=",
       "Microsoft.Extensions.Options.wasm": "sha256-5/m+yVFGRuY+N4jQnD+QETKH0AfhAsnVze5dJ5ogIVM=",
+      "Microsoft.Extensions.Options.ConfigurationExtensions.wasm": "sha256-C8ZA1VhhrMRPf8Qqv+OrW9za3ggJkCM9i1d8R/F1ETc=",
       "Microsoft.Extensions.Primitives.wasm": "sha256-pVrYOTfjb2ITls3LKIByW1t8jwOAWFhmkIVDewtJ1GE=",
       "Microsoft.IdentityModel.Abstractions.wasm": "sha256-FE8dCYptC+9o2f5kQxyGFKpNUy5oqfY2XdfcIqv8S7Q=",
       "Microsoft.IdentityModel.JsonWebTokens.wasm": "sha256-KGBdbAoA3vhbu6l8dB2EEvi3fM33AKU5NiBGIOojSS8=",
@@ -220,10 +223,10 @@
       "mscorlib.wasm": "sha256-XvLAB5IyfVSmj5aaGnPwgVFaaZz8jXmbN8WmeopiPBM=",
       "netstandard.wasm": "sha256-TbMssdnuTiKq1gjTPkpgROAuWN0uhvPnagvWR+wAgNs=",
       "System.Private.CoreLib.wasm": "sha256-sscg+Efk8ROPq+q4IVmhShzITuoOYvB8Bsc+Mp9vcSM=",
-      "EventRegistrationApp.wasm": "sha256-CNZu7Rd6YrefhHgzxKAqvMJZErypkVop5SAUngWnfO0="
+      "EventRegistrationApp.wasm": "sha256-unM/LzDvMn1u6FoO9qafoY8k5KINcT6WbFQUGECy1v4="
     },
     "pdb": {
-      "EventRegistrationApp.pdb": "sha256-oYfiOTL7QKswZxvkpRX6eKhIWII2o1teeObVbmGFV1o="
+      "EventRegistrationApp.pdb": "sha256-2KZ0VwFL0MC30ZpIArVEtUSpOSSDzeDiocwMOdruOhc="
     }
   },
   "cacheBootResources": true,

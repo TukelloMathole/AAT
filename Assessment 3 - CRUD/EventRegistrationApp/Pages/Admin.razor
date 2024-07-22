@@ -3,6 +3,7 @@
 @inject IJSRuntime js
 @using EventRegistrationApp.Models
 @inject ApiService ApiService
+@inject ILogger<Admin> Logger
 
 <section class="mb-6">
     <button @onclick="Logout" class="inline-flex items-center px-6 py-3 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition duration-150 ease-in-out">
@@ -183,7 +184,7 @@
     {
         if (newEvent == null)
         {
-            Console.WriteLine("Event data is not provided.");
+            Logger.LogWarning("Event data is not provided.");
             return;
         }
 
@@ -198,15 +199,24 @@
             { new StringContent(newEvent.Category), "Category" }
         };
 
-        var response = await ApiService.CreateEventAsync(content);
-        if (response.IsSuccessStatusCode)
+        try
         {
-            // Handle success (e.g., show a message or redirect)
-            showSuccessModal = true;
+            var response = await ApiService.CreateEventAsync(content);
+            if (response.IsSuccessStatusCode)
+            {
+                Logger.LogInformation("Event created successfully.");
+                showSuccessModal = true;
+            }
+            else
+            {
+                Logger.LogWarning("Event creation failed. Status code: {StatusCode}", response.StatusCode);
+                var errorContent = await response.Content.ReadAsStringAsync();
+                Logger.LogWarning("Error response content: {Content}", errorContent);
+            }
         }
-        else
+        catch (Exception ex)
         {
-            // Handle error
+            Logger.LogError(ex, "An error occurred while creating the event.");
         }
     }
 
@@ -222,7 +232,6 @@
     private List<CategoryModel> Categories = new();
     private CancellationTokenSource debounceCancellationTokenSource = new CancellationTokenSource();
 
-
     private IEnumerable<MyDataType> FilteredEvents =>
         events.Where(e => (string.IsNullOrEmpty(selectedCategory) || e.Category == selectedCategory) &&
                           (string.IsNullOrEmpty(searchQuery) ||
@@ -235,20 +244,30 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Categories = await ApiService.GetCategoriesAsync();
-        var token = await js.InvokeAsync<string>("localStorage.getItem", "authToken");
-        if (string.IsNullOrEmpty(token))
+        try
         {
-            Navigation.NavigateTo("/login");
+            Categories = await ApiService.GetCategoriesAsync();
+            var token = await js.InvokeAsync<string>("localStorage.getItem", "authToken");
+            if (string.IsNullOrEmpty(token))
+            {
+                Logger.LogWarning("No authentication token found. Redirecting to login.");
+                Navigation.NavigateTo("/login");
+            }
+            else
+            {
+                events = await ApiService.GetDataAsync();
+                Logger.LogInformation("Event data fetched successfully.");
+            }
         }
-        else
+        catch (Exception ex)
         {
-            events = await ApiService.GetDataAsync();
+            Logger.LogError(ex, "An error occurred during initialization.");
         }
     }
 
     private async Task EditEvent(MyDataType eventToEdit)
     {
+        Logger.LogInformation("Navigating to edit page for event ID: {EventId}", eventToEdit.EventId);
         Navigation.NavigateTo($"/edit-event/{eventToEdit.EventId}");
     }
 
@@ -257,24 +276,49 @@
         bool confirmed = await js.InvokeAsync<bool>("confirm", "Are you sure you want to delete this event?");
         if (confirmed)
         {
-            await ApiService.DeleteEventAsync(eventId);
-            events = await ApiService.GetDataAsync();
+            try
+            {
+                await ApiService.DeleteEventAsync(eventId);
+                events = await ApiService.GetDataAsync();
+                Logger.LogInformation("Event ID {EventId} deleted successfully.", eventId);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError(ex, "An error occurred while deleting event ID: {EventId}", eventId);
+            }
+        }
+        else
+        {
+            Logger.LogInformation("Event deletion canceled by user for event ID: {EventId}", eventId);
         }
     }
+
     private async Task ConfirmDelete()
     {
-        await ApiService.DeleteEventAsync(eventIdToDelete);
-        events = await ApiService.GetDataAsync();
-        showDeleteModal = false;
+        try
+        {
+            await ApiService.DeleteEventAsync(eventIdToDelete);
+            events = await ApiService.GetDataAsync();
+            showDeleteModal = false;
+            Logger.LogInformation("Event ID {EventId} confirmed for deletion.", eventIdToDelete);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "An error occurred while confirming deletion for event ID: {EventId}", eventIdToDelete);
+        }
     }
+
     private void ShowDeleteConfirmation(int eventId)
     {
         eventIdToDelete = eventId;
         showDeleteModal = true;
+        Logger.LogInformation("Showing delete confirmation modal for event ID: {EventId}", eventId);
     }
+
     private void CancelDelete()
     {
         showDeleteModal = false;
+        Logger.LogInformation("Delete operation canceled.");
     }
 
     private async Task OnSearchQueryChanged(ChangeEventArgs e)
@@ -291,6 +335,7 @@
         {
             await Task.Delay(300, token);
             StateHasChanged();
+            Logger.LogInformation("Search query changed to: {SearchQuery}", searchQuery);
         }
         catch (TaskCanceledException)
         {
@@ -301,7 +346,8 @@
     private async Task Logout()
     {
         await js.InvokeVoidAsync("localStorage.removeItem", "authToken");
-        Navigation.NavigateTo("/login",true);
+        Logger.LogInformation("User logged out. Redirecting to login page.");
+        Navigation.NavigateTo("/login", true);
     }
 }
 

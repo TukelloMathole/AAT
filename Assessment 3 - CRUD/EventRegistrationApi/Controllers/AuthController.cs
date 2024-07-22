@@ -2,6 +2,7 @@
 using EventRegistrationApi.Models;
 using System.Linq;
 using System.Collections.Generic;
+using Microsoft.Extensions.Logging;
 
 namespace EventRegistrationApi.Controllers
 {
@@ -10,10 +11,12 @@ namespace EventRegistrationApi.Controllers
     public class AuthController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly ILogger<AuthController> _logger;
 
-        public AuthController(AppDbContext context)
+        public AuthController(AppDbContext context, ILogger<AuthController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         [HttpPost("login")]
@@ -21,9 +24,11 @@ namespace EventRegistrationApi.Controllers
         {
             if (IsValidUser(loginRequest.email, loginRequest.password))
             {
+                _logger.LogInformation("User {Email} logged in successfully.", loginRequest.email);
                 return Ok("Login successful!");
             }
 
+            _logger.LogWarning("Invalid login attempt for user {Email}.", loginRequest.email);
             return Unauthorized("Invalid username or password.");
         }
 
@@ -36,6 +41,7 @@ namespace EventRegistrationApi.Controllers
         [HttpGet("users")]
         public ActionResult<IEnumerable<AdminUser>> GetAllUsers()
         {
+            _logger.LogInformation("Fetching all users.");
             var users = _context.AdminUsers.ToList();
             return Ok(users);
         }
@@ -46,6 +52,7 @@ namespace EventRegistrationApi.Controllers
             // Check if the user already exists
             if (_context.AdminUsers.Any(u => u.Email == createUserDto.Email))
             {
+                _logger.LogWarning("Attempt to create a user that already exists: {Email}.", createUserDto.Email);
                 return BadRequest("User already exists.");
             }
 
@@ -58,6 +65,7 @@ namespace EventRegistrationApi.Controllers
             _context.AdminUsers.Add(newUser);
             _context.SaveChanges();
 
+            _logger.LogInformation("User {Email} created successfully.", createUserDto.Email);
             return Ok("User created successfully.");
         }
     }

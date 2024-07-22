@@ -2,6 +2,7 @@
 @using EventRegistrationApp.Models
 @inject ApiService ApiService
 @inject NavigationManager Navigation
+@inject ILogger<Events> Logger
 
 <section class="bg-gray-50 py-8">
     <h2 class="text-4xl font-bold text-center mb-10 text-gray-800">Upcoming Events</h2>
@@ -74,16 +75,25 @@
 
     protected override async Task OnInitializedAsync()
     {
-        // Fetch events and categories
-        events = await ApiService.GetDataAsync();
-        Categories = await ApiService.GetCategoriesAsync();
+        try
+        {
+            // Fetching events and categories
+            events = await ApiService.GetDataAsync();
+            Categories = await ApiService.GetCategoriesAsync();
+            Logger.LogInformation("Events and categories fetched successfully.");
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error fetching events or categories.");
+        }
     }
 
     private async Task OnSearchQueryChanged(ChangeEventArgs e)
     {
         searchQuery = e.Value.ToString();
+        Logger.LogInformation("Search query changed: {SearchQuery}", searchQuery);
 
-        // Cancel previous debounce task
+        
         debounceCancellationTokenSource.Cancel();
         debounceCancellationTokenSource.Dispose();
         debounceCancellationTokenSource = new CancellationTokenSource();
@@ -95,16 +105,29 @@
             // Delay before applying the search filter
             await Task.Delay(300, token);
             StateHasChanged();
+            Logger.LogInformation("Search filter applied after delay.");
         }
         catch (TaskCanceledException)
         {
-            // Task was canceled, no action needed
+            Logger.LogDebug("Search query debounce task was canceled.");
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error during search query debounce.");
         }
     }
 
     private async Task BookEvent(int eventId)
     {
-        // Redirect to booking page with the eventId
-        Navigation.NavigateTo($"/book-event/{eventId}");
+        try
+        {
+            // Redirect to booking page with the eventId
+            Navigation.NavigateTo($"/book-event/{eventId}");
+            Logger.LogInformation("Navigated to booking page for event ID: {EventId}", eventId);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error navigating to booking page for event ID: {EventId}", eventId);
+        }
     }
 }

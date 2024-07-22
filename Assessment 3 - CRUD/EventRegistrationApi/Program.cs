@@ -1,7 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using EventRegistrationApi.Models; // Ensure this namespace matches where AppDbContext is defined
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure Serilog
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+builder.Host.UseSerilog(); // Add this line to use Serilog for logging
 
 // Add services to the container.
 builder.Services.AddDbContext<AppDbContext>(options =>

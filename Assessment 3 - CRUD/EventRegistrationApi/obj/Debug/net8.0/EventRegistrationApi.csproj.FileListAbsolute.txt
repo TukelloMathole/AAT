@@ -128,3 +128,12 @@ C:\Users\tukel\Desktop\AAT\Assessment 3 - CRUD\EventRegistrationApi\obj\Debug\ne
 C:\Users\tukel\Desktop\AAT\Assessment 3 - CRUD\EventRegistrationApi\obj\Debug\net8.0\EventRegistrationApi.pdb
 C:\Users\tukel\Desktop\AAT\Assessment 3 - CRUD\EventRegistrationApi\obj\Debug\net8.0\EventRegistrationApi.genruntimeconfig.cache
 C:\Users\tukel\Desktop\AAT\Assessment 3 - CRUD\EventRegistrationApi\obj\Debug\net8.0\ref\EventRegistrationApi.dll
+C:\Users\tukel\Desktop\AAT\Assessment 3 - CRUD\EventRegistrationApi\bin\Debug\net8.0\Serilog.dll
+C:\Users\tukel\Desktop\AAT\Assessment 3 - CRUD\EventRegistrationApi\bin\Debug\net8.0\Serilog.AspNetCore.dll
+C:\Users\tukel\Desktop\AAT\Assessment 3 - CRUD\EventRegistrationApi\bin\Debug\net8.0\Serilog.Extensions.Hosting.dll
+C:\Users\tukel\Desktop\AAT\Assessment 3 - CRUD\EventRegistrationApi\bin\Debug\net8.0\Serilog.Extensions.Logging.dll
+C:\Users\tukel\Desktop\AAT\Assessment 3 - CRUD\EventRegistrationApi\bin\Debug\net8.0\Serilog.Formatting.Compact.dll
+C:\Users\tukel\Desktop\AAT\Assessment 3 - CRUD\EventRegistrationApi\bin\Debug\net8.0\Serilog.Settings.Configuration.dll
+C:\Users\tukel\Desktop\AAT\Assessment 3 - CRUD\EventRegistrationApi\bin\Debug\net8.0\Serilog.Sinks.Console.dll
+C:\Users\tukel\Desktop\AAT\Assessment 3 - CRUD\EventRegistrationApi\bin\Debug\net8.0\Serilog.Sinks.Debug.dll
+C:\Users\tukel\Desktop\AAT\Assessment 3 - CRUD\EventRegistrationApi\bin\Debug\net8.0\Serilog.Sinks.File.dll

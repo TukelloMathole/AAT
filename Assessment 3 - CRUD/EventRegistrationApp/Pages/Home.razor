@@ -2,6 +2,7 @@
 @inject NavigationManager Navigation
 @inject ApiService ApiService
 @using EventRegistrationApp.Models
+@inject ILogger<Home> Logger
 
 <PageTitle>Event Registration</PageTitle>
 
@@ -172,19 +173,31 @@
 
     protected override async Task OnInitializedAsync()
     {
-        events = (await ApiService.GetDataAsync()).Take(6).ToList();
+        try
+        {
+            Logger.LogInformation("Fetching events data.");
+
+            // Fetch and log the number of events retrieved
+            events = (await ApiService.GetDataAsync()).Take(6).ToList();
+            Logger.LogInformation($"Fetched {events.Count} events.");
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "An error occurred while fetching events data.");
+        }
     }
 
     private void NavigateToRegister()
     {
+        Logger.LogInformation("Navigating to the register page.");
         NavigationManager.NavigateTo("/register");
     }
 
     private void BookEvent(int eventId)
     {
+        Logger.LogInformation($"Navigating to book event with ID: {eventId}");
         NavigationManager.NavigateTo($"/book-event/{eventId}");
     }
-
     [Inject]
     private NavigationManager NavigationManager { get; set; }
 }

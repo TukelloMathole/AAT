@@ -2,6 +2,7 @@
 @using EventRegistrationApp.Models
 @inject ApiService ApiService
 @inject NavigationManager NavigationManager
+@inject ILogger<BookNowComponent> Logger
 
 <h2 class="text-2xl font-bold mb-6">Book Event</h2>
 
@@ -101,37 +102,55 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        // Fetch event details based on EventId
-        eventDetails = await ApiService.GetEventByIdAsync(EventId);
+        try
+        {
+            // Fetch event details based on EventId
+            eventDetails = await ApiService.GetEventByIdAsync(EventId);
+            Logger.LogInformation("Fetched event details for event ID: {EventId}", EventId);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error fetching event details for event ID: {EventId}", EventId);
+        }
     }
 
     private async Task HandleValidSubmit()
     {
-        // Handle booking submission
-        var response = await ApiService.BookEventAsync(EventId, bookingModel);
+        try
+        {
+            // Handling booking submission
+            var response = await ApiService.BookEventAsync(EventId, bookingModel);
 
-        if (response.IsSuccessStatusCode)
-        {
-            // Show success modal
-            showSuccessModal = true;
+            if (response.IsSuccessStatusCode)
+            {
+                // Showing success modal
+                showSuccessModal = true;
+                Logger.LogInformation("Booking successful for event ID: {EventId}", EventId);
+            }
+            else
+            {
+                // Handling error
+                errorMessage = await response.Content.ReadAsStringAsync();
+                Logger.LogWarning("Error booking event ID: {EventId}. Response: {ErrorMessage}", EventId, errorMessage);
+                
+            }
         }
-        else
+        catch (Exception ex)
         {
-            // Handle error
-            errorMessage = await response.Content.ReadAsStringAsync();
-            Console.WriteLine($"Error booking event: {errorMessage}");
-            // Optionally display errorMessage to the user
+            Logger.LogError(ex, "An error occurred while booking event ID: {EventId}", EventId);
         }
     }
 
     private void CancelBooking()
     {
+        Logger.LogInformation("Booking canceled for event ID: {EventId}", EventId);
         NavigationManager.NavigateTo("/events");
     }
 
     private void CloseSuccessModal()
     {
         showSuccessModal = false;
+        Logger.LogInformation("Success modal closed for event ID: {EventId}", EventId);
         NavigationManager.NavigateTo("/events");
     }
 }

@@ -2,6 +2,7 @@
 @using EventRegistrationApp.Models
 @inject ApiService ApiService
 @inject NavigationManager NavigationManager
+@inject ILogger<EditComponent> Logger
 
 <h2 class="text-2xl font-bold mb-6">Edit Event</h2>
 
@@ -63,7 +64,7 @@
     </div>
 </EditForm>
 
-<!-- Redesigned Success Modal -->
+
 <div class="fixed z-10 inset-0 overflow-y-auto" style="display:@(showSuccessModal ? "block" : "none");">
     <div class="flex items-center justify-center min-h-screen px-4 text-center sm:block sm:p-0">
         <div class="fixed inset-0 transition-opacity" aria-hidden="true">
@@ -100,43 +101,62 @@
 
     protected override async Task OnInitializedAsync()
     {
-        eventToEdit = await ApiService.GetEventByIdAsync(EventId);
+        try
+        {
+            eventToEdit = await ApiService.GetEventByIdAsync(EventId);
+            Logger.LogInformation("Loaded event details for event ID: {EventId}", EventId);
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError(ex, "Error loading event details for event ID: {EventId}", EventId);
+        }
     }
 
     private async Task HandleValidSubmit()
     {
-        var content = new MultipartFormDataContent();
-        content.Add(new StringContent(eventToEdit.EventId.ToString()), "EventId");
-        content.Add(new StringContent(eventToEdit.EventName), "EventName");
-        content.Add(new StringContent(eventToEdit.EventDate.ToString("yyyy-MM-ddTHH:mm:ss")), "EventDate");
-        content.Add(new StringContent(eventToEdit.Location), "Location");
-        content.Add(new StringContent(eventToEdit.EventTime), "EventTime");
-        content.Add(new StringContent(eventToEdit.AvailableSeats.ToString()), "AvailableSeats");
-        content.Add(new StringContent(eventToEdit.Description), "Description");
-        content.Add(new StringContent(eventToEdit.Category), "Category");
-
-        var response = await ApiService.UpdateEventAsync(eventToEdit.EventId, content);
-
-        if (response.IsSuccessStatusCode)
+        var content = new MultipartFormDataContent
         {
-            showSuccessModal = true;
+            { new StringContent(eventToEdit.EventId.ToString()), "EventId" },
+            { new StringContent(eventToEdit.EventName), "EventName" },
+            { new StringContent(eventToEdit.EventDate.ToString("yyyy-MM-ddTHH:mm:ss")), "EventDate" },
+            { new StringContent(eventToEdit.Location), "Location" },
+            { new StringContent(eventToEdit.EventTime), "EventTime" },
+            { new StringContent(eventToEdit.AvailableSeats.ToString()), "AvailableSeats" },
+            { new StringContent(eventToEdit.Description), "Description" },
+            { new StringContent(eventToEdit.Category), "Category" }
+        };
+
+        try
+        {
+            var response = await ApiService.UpdateEventAsync(eventToEdit.EventId, content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                Logger.LogInformation("Event updated successfully for event ID: {EventId}", eventToEdit.EventId);
+                showSuccessModal = true;
+            }
+            else
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                Logger.LogWarning("Error updating event ID: {EventId}. Response: {ErrorMessage}", eventToEdit.EventId, error);
+            }
         }
-        else
+        catch (Exception ex)
         {
-            // Handle the error response
-            var error = await response.Content.ReadAsStringAsync();
-            Console.WriteLine($"Error updating event: {error}");
+            Logger.LogError(ex, "An error occurred while updating event ID: {EventId}", eventToEdit.EventId);
         }
     }
 
     private void ConfirmUpdates()
     {
         showSuccessModal = false;
+        Logger.LogInformation("Successfully updated event ID: {EventId}. Redirecting to admin.", eventToEdit.EventId);
         NavigationManager.NavigateTo("/admin", true);
     }
 
     private void CancelEdit()
     {
-        NavigationManager.NavigateTo("/admin"); // Redirect to event list or any other page
+        Logger.LogInformation("Edit operation canceled for event ID: {EventId}. Redirecting to admin.", EventId);
+        NavigationManager.NavigateTo("/admin");
     }
 }
