@@ -2,6 +2,7 @@
 @inject HttpClient HttpClient
 @inject NavigationManager Navigation
 @inject IJSRuntime js
+@inject ApiService ApiService
 @using System.ComponentModel.DataAnnotations;
 @inject ILogger<LogIn> Logger
 
@@ -67,28 +68,19 @@
     {
         try
         {
-            var response = await HttpClient.PostAsJsonAsync("https://localhost:7018/api/auth/login", loginModel);
-            if (response.IsSuccessStatusCode)
-            {
-                var token = await response.Content.ReadAsStringAsync();
-                // Store token in local storage
-                await js.InvokeVoidAsync("localStorage.setItem", "authToken", token);
-                // Show success modal
-                showSuccessModal = true;
-                Logger.LogInformation("Login successful.");
-            }
-            else
-            {
-                
-                Logger.LogWarning("Login failed. Status code: {StatusCode}", response.StatusCode);
-                
-                var errorContent = await response.Content.ReadAsStringAsync();
-                Logger.LogWarning("Error response content: {Content}", errorContent);
-            }
+            var token = await ApiService.LoginAsync(loginModel);
+            // Store token in local storage
+            await js.InvokeVoidAsync("localStorage.setItem", "authToken", token);
+            // Show success modal
+            showSuccessModal = true;
+            Logger.LogInformation("Login successful.");
+        }
+        catch (HttpRequestException ex)
+        {
+            Logger.LogWarning(ex.Message);
         }
         catch (Exception ex)
         {
-            
             Logger.LogError(ex, "An error occurred during login.");
         }
     }

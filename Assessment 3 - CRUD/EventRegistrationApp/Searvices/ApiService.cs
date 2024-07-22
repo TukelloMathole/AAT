@@ -5,6 +5,7 @@ using System.Text.Json;
 using System.Text;
 using System.Threading.Tasks;
 using EventRegistrationApp.Models;
+using static EventRegistrationApp.Pages.LogIn;
 
 public class ApiService
 {
@@ -78,6 +79,19 @@ public class ApiService
         var response = await _httpClient.GetAsync("api/categories");
         response.EnsureSuccessStatusCode();
         return await response.Content.ReadFromJsonAsync<List<CategoryModel>>();
+    }
+
+    public async Task<string> LoginAsync(LoginModel loginModel)
+    {
+        var response = await _httpClient.PostAsJsonAsync("/api/auth/login", loginModel);
+        if (response.IsSuccessStatusCode)
+        {
+            return await response.Content.ReadAsStringAsync();
+        }
+        else
+        {
+            throw new HttpRequestException($"Login failed. Status code: {response.StatusCode}");
+        }
     }
 
 }

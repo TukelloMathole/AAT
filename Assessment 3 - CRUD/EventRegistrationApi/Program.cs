@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using EventRegistrationApi.Models; // Ensure this namespace matches where AppDbContext is defined
+using EventRegistrationApi.Models; 
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,9 +10,9 @@ Log.Logger = new LoggerConfiguration()
     .WriteTo.File("logs/log-.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
 
-builder.Host.UseSerilog(); // Add this line to use Serilog for logging
+builder.Host.UseSerilog(); 
 
-// Add services to the container.
+
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlite("Data Source=eventregistration.db"));
 
@@ -42,10 +42,10 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
-app.UseCors("AllowSpecificOrigins"); // Ensure CORS is applied after routing but before authorization
+app.UseCors("AllowSpecificOrigins"); 
 
 app.UseAuthorization();
 
-app.MapControllers(); // Directly map controllers in .NET 6+
+app.MapControllers(); 
 
 app.Run();
