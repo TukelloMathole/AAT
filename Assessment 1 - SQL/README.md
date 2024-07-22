@@ -3,62 +3,85 @@ Optimizations for Efficient Database Operations
 Code Snippet:
 
 
-    string sql = $"SELECT TOP 1000000 * FROM received WHERE status = 1 ORDER BY re_ref";
+   string sql = $"SELECT TOP 1000000 * FROM received WHERE status = 1 ORDER BY re_ref";
 
-    // List of SQL nodes to query
-    IEnumerable<IConfigurationSection> SqlNodes = Program.Configuration.GetSection("ConnectionStrings").GetSection("SqlNodes").GetChildren();
+// List of SQL nodes to query
+IEnumerable<IConfigurationSection> SqlNodes = Program.Configuration.GetSection("ConnectionStrings").GetSection("SqlNodes").GetChildren();
 
-    // Merged result set
-    List<received> results = new List<received>();
+// Merged result set
+List<received> results = new List<received>();
 
-    // Using Parallel.ForEach to concurrently query databases
-    Parallel.ForEach(SqlNodes, Node =>
+// Using Parallel.ForEach to concurrently query databases
+Parallel.ForEach(SqlNodes, Node =>
+{
+    received[] result = DBQuery<received>.Query(Node.Value, sql); // Internal function to query DB and return results
+    lock (results) // Ensure thread-safe access to results list
     {
-        received[] result = DBQuery<received>.Query(Node.Value, sql); // Internal function to query DB and return results
-        lock (results) // Ensure thread is safe access to results list with the use of lock statement.
-        {
-            results.AddRange(result);
-        }
-    });
-
-    // Batch insert into 'received_total' table
-    string insertQuery = @"INSERT INTO received_total (rt_msisdn, rt_message) VALUES (@msisdn, @message)";
-    const int batchSize = 1000; // Batch size for inserting records
-    int recordsInserted = 0; // Initializing a counter for tracking the number of records successfully inserted into the database
-
-    // Establishing the database connection
-    using (SqlConnection connection = new SqlConnection(ConnectionString))
-    {
-        connection.Open();
-        // Preparing SQL command for data insertion
-        using (SqlCommand command = new SqlCommand(insertQuery, connection))
-        {
-            foreach (received rec in results)
-            {
-                command.Parameters.Clear(); // Clearing parameters from previous iteration with new ones
-
-                // Set parameters for the current record
-                command.Parameters.AddWithValue("@msisdn", rec.re_fromnum);
-                command.Parameters.AddWithValue("@message", rec.re_message);
-
-                command.ExecuteNonQuery();
-                recordsInserted++;
-
-                // Batch commit - Execute the batch insert after 'batchSize' records
-                if (recordsInserted % batchSize == 0)
-                {
-                    command.ExecuteNonQuery(); // Executing the batch insert
-                }
-            }
-
-            // Final commit for remaining records
-            if (recordsInserted % batchSize != 0)
-            {
-                command.ExecuteNonQuery();
-            }
-        }
-        connection.Close();// closing the connection
+        results.AddRange(result);
     }
+});
+
+// Batch insert into 'received_total' table
+const int batchSize = 1000; // Batch size for inserting records
+string insertQuery = @"INSERT INTO received_total (rt_msisdn, rt_message) VALUES (@msisdn, @message)";
+List<received> batch = new List<received>(); // List to hold the current batch of records
+
+// Establishing the database connection
+using (SqlConnection connection = new SqlConnection(ConnectionString))
+{
+    connection.Open();
+    
+    using (SqlCommand command = new SqlCommand())
+    {
+        command.Connection = connection;
+        command.CommandText = insertQuery;
+
+        foreach (received rec in results)
+        {
+            command.Parameters.Clear(); // Clear parameters for each record
+
+            // Set parameters for the current record
+            command.Parameters.AddWithValue("@msisdn", rec.re_fromnum);
+            command.Parameters.AddWithValue("@message", rec.re_message);
+
+            command.ExecuteNonQuery();
+            batch.Add(rec);
+
+            // Batch commit - Execute the batch insert after 'batchSize' records
+            if (batch.Count >= batchSize)
+            {
+                // Insert batch records
+                foreach (received item in batch)
+                {
+                    command.Parameters.Clear(); // Clear parameters for each record
+
+                    // Set parameters for the batch insert
+                    command.Parameters.AddWithValue("@msisdn", item.re_fromnum);
+                    command.Parameters.AddWithValue("@message", item.re_message);
+
+                    command.ExecuteNonQuery();
+                }
+                batch.Clear(); // Clear batch list
+            }
+        }
+
+        // Final commit for remaining records
+        if (batch.Count > 0)
+        {
+            foreach (received item in batch)
+            {
+                command.Parameters.Clear(); // Clear parameters for each record
+
+                // Set parameters for the batch insert
+                command.Parameters.AddWithValue("@msisdn", item.re_fromnum);
+                command.Parameters.AddWithValue("@message", item.re_message);
+
+                command.ExecuteNonQuery();
+            }
+        }
+    }
+}
+
 
 
 
