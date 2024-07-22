@@ -84,7 +84,7 @@ Code Snippet:
 
 
 
-
+The optimized code uses a List to collect records in batches and then executes the insertion in bulk. This reduces the number of database round-trips and improves performance by handling multiple records at once.
 
 Parameterized Queries:
 
