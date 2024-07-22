@@ -3,7 +3,7 @@ Optimizations for Efficient Database Operations
 Code Snippet:
 
 
-   string sql = $"SELECT TOP 1000000 * FROM received WHERE status = 1 ORDER BY re_ref";
+      string sql = $"SELECT TOP 1000000 * FROM received WHERE status = 1 ORDER BY re_ref";
 
 // List of SQL nodes to query
 IEnumerable<IConfigurationSection> SqlNodes = Program.Configuration.GetSection("ConnectionStrings").GetSection("SqlNodes").GetChildren();
@@ -80,7 +80,8 @@ using (SqlConnection connection = new SqlConnection(ConnectionString))
             }
         }
     }
-}
+    }
+
 
 
 
