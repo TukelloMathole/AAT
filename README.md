@@ -69,8 +69,7 @@ Project Structure
 
 Data Storage
 
-    SQLite3: A SQLite database file is included for persistent data storage. Ensure the database file is attached to the project.
-    In-Memory (optional): For testing purposes, provide a data seed if using In-Memory storage.
+    SQLite3: A SQLite database file is included for persistent data storage.
 
 ORM
 
