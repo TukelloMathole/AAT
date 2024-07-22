@@ -41,10 +41,4 @@
         left: -30px;
     }
 
-.custom-nav-link {
-    padding-top: 0.25rem; /* Adjust top padding */
-    padding-bottom: 0.25rem; /* Adjust bottom padding */
-    margin-top: 0.1rem; /* Adjust top margin */
-    margin-bottom: 0.1rem; /* Adjust bottom margin */
-    font-size: 0.875rem; /* Adjust font size if needed */
-}
+

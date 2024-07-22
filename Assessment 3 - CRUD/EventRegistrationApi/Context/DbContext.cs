@@ -9,6 +9,7 @@ public class AppDbContext : DbContext
     public DbSet<Event> Events { get; set; }
     public DbSet<BookingModel> Bookings { get; set; }
     public DbSet<CategoryModel> Categories { get; set; }
+    public DbSet<AdminUser> AdminUsers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -28,6 +29,12 @@ public class AppDbContext : DbContext
                 entity.HasKey(c => c.CategoryId);
                 entity.Property(c => c.CategoryName).IsRequired().HasMaxLength(100);
             });
+        });
+
+        modelBuilder.Entity<AdminUser>(entity =>
+        {
+            entity.HasKey(a => a.Email);
+            entity.Property(a => a.Password).IsRequired();
         });
     }
 }

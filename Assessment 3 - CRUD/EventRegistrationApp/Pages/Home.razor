@@ -6,68 +6,74 @@
 <PageTitle>Event Registration</PageTitle>
 
 <div class="bg-gray-50 min-h-screen flex flex-col">
-    <main class="flex-grow px-1">
-
-        <section class="relative bg-cover bg-center h-[50vh]" style="background-image: url('/event.jpg');">
+    <main class="flex-grow px-4 md:px-8">
+        <section class="relative bg-cover bg-center h-[40vh]" style="background-image: url('/event.jpg');">
             <div class="absolute inset-0 bg-black opacity-50"></div>
-            <div class="relative container mx-auto px-6 py-12 flex flex-col items-center justify-center h-full text-center text-white">
-                <h1 class="text-3xl md:text-4xl font-bold mb-4 leading-tight">Experience Unforgettable Events in 2024</h1>
-                <p class="text-md md:text-lg mb-6">Explore a diverse range of events that cater to all interests. Whether you're looking to network, learn, or simply have fun, we've got you covered!</p>
-                <button class="appLandingBTN">Button</button>
-
+            <div class="relative container mx-auto px-4 py-8 flex flex-col items-center justify-center h-full text-center text-white">
+                <h1 class="text-3xl md:text-4xl font-bold mb-4 leading-tight md:leading-tight">Experience Unforgettable Events in 2024</h1>
+                <p class="text-sm md:text-base mb-6 md:mb-8 leading-relaxed max-w-lg mx-auto">
+                    Explore a diverse range of events that cater to all interests. Whether you're looking to network, learn, or simply have fun, we've got you covered!
+                </p>
+                <button class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 focus:outline-none transition duration-300 ease-in-out transform hover:scale-105">
+                    Get Started
+                </button>
             </div>
         </section>
 
-        <section class="bg-gray-50 py-5">
-            <h2 class="text-5xl font-extrabold text-center mb-12 text-gray-800">Upcoming Events</h2>
-            <div class="max-w-4xl mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-                @if (events == null)
+
+
+        <section class="bg-gray-50 py-8">
+    <h2 class="text-4xl font-bold text-center mb-8 text-gray-800">Upcoming Events</h2>
+    <div class="max-w-6xl mx-auto px-4">
+        @if (events == null)
+        {
+            <p class="text-center text-gray-600"><em>Loading...</em></p>
+        }
+        else if (events.Count == 0)
+        {
+            <p class="text-center text-gray-600"><em>No upcoming events</em></p>
+        }
+        else
+        {
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                @foreach (var eventItem in events)
                 {
-                    <p><em>Loading...</em></p>
-                }
-                else if (events.Count == 0)
-                {
-                    <p><em>No upcoming events</em></p>
-                }
-                else
-                {
-                    @foreach (var eventItem in events)
-                    {
-                        <div class="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 flex flex-col">
-                            @* <img src="@eventItem.Image" alt="@eventItem.EventName" class="w-full h-40 object-cover"> *@
-                            <div class="p-6 flex flex-col flex-grow">
-                                <h3 class="text-2xl font-semibold mb-2">@eventItem.EventName</h3>
-                                <p class="text-gray-600 mb-2">Date: @eventItem.EventDate.ToString("d MMM yyyy")</p>
-                                <p class="text-gray-600 mb-2">Location: @eventItem.Location</p>
-                                <p class="text-gray-600 mb-2">Time: @eventItem.EventTime</p>
-                                <p class="text-gray-600 mb-4">Available Seats: @eventItem.AvailableSeats</p>
-                                <p class="text-gray-700 flex-grow">@eventItem.Description</p>
-                                <button @onclick="() => BookEvent(eventItem.EventId)" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out mt-4">
-                                    Book Now
-                                </button>
-                            </div>
+                    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                        <div class="p-4">
+                            <h3 class="text-xl font-semibold mb-1">@eventItem.EventName</h3>
+                            <p class="text-gray-600 text-sm mb-1">Date: @eventItem.EventDate.ToString("d MMM yyyy")</p>
+                            <p class="text-gray-600 text-sm mb-1">Location: @eventItem.Location</p>
+                            <p class="text-gray-600 text-sm mb-1">Time: @eventItem.EventTime</p>
+                            <p class="text-gray-600 text-sm mb-2">Available Seats: @eventItem.AvailableSeats</p>
+                            <p class="text-gray-700 text-sm truncate">@eventItem.Description</p>
                         </div>
-                    }
+                        <div class="p-4 bg-gray-100 text-center">
+                            <button @onclick="() => BookEvent(eventItem.EventId)" class="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none">
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
                 }
-            </div>  
-        </section>
+            </div>
+        }
+    </div>
+</section>
 
 
 
-
-        <section class="text-center mb-16">
-            <h2 class="text-4xl font-bold mb-8">Why Choose Us?</h2>
-            <div class="flex flex-wrap justify-center gap-8">
-                <div class="max-w-xs bg-white shadow-lg rounded-lg p-6">
-                    <h3 class="text-2xl font-semibold mb-2">Easy Registration</h3>
+        <section class="text-center mb-12">
+            <h2 class="text-3xl font-bold mb-6">Why Choose Us?</h2>
+            <div class="flex flex-wrap justify-center gap-6">
+                <div class="max-w-sm bg-white shadow-md rounded-lg p-4">
+                    <h3 class="text-xl font-semibold mb-2">Easy Registration</h3>
                     <p>Register for events with just a few clicks.</p>
                 </div>
-                <div class="max-w-xs bg-white shadow-lg rounded-lg p-6">
-                    <h3 class="text-2xl font-semibold mb-2">Secure Payments</h3>
+                <div class="max-w-sm bg-white shadow-md rounded-lg p-4">
+                    <h3 class="text-xl font-semibold mb-2">Secure Payments</h3>
                     <p>Ensure your transactions are safe and secure.</p>
                 </div>
-                <div class="max-w-xs bg-white shadow-lg rounded-lg p-6">
-                    <h3 class="text-2xl font-semibold mb-2">Real-Time Updates</h3>
+                <div class="max-w-sm bg-white shadow-md rounded-lg p-4">
+                    <h3 class="text-xl font-semibold mb-2">Real-Time Updates</h3>
                     <p>Stay informed with real-time event updates.</p>
                 </div>
             </div>
@@ -75,30 +81,30 @@
     </main>
 
     <footer class="bg-gray-800 text-white py-12">
-    <div class="max-w-6xl mx-auto px-4">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
-            <!-- About Section -->
-            <div>
-                <h3 class="text-lg font-semibold mb-4">About Us</h3>
-                <p class="text-gray-400 mb-4">We are dedicated to providing a seamless event registration experience. Our platform connects you with exciting events and opportunities to engage with like-minded individuals.</p>
-                <p class="text-gray-400">For inquiries, please email us at <a href="mailto:support@eventregistrationapp.com" class="text-blue-400 hover:text-blue-300">support@eventregistrationapp.com</a>.</p>
-            </div>
-            
-            <!-- Navigation Links -->
-            <div>
-                <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
-                <ul class="space-y-2">
-                    <li><a href="#home" class="text-gray-400 hover:text-white">Home</a></li>
-                    <li><a href="#events" class="text-gray-400 hover:text-white">Events</a></li>
-                    <li><a href="#about" class="text-gray-400 hover:text-white">About Us</a></li>
-                    <li><a href="#contact" class="text-gray-400 hover:text-white">Contact</a></li>
-                </ul>
-            </div>
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+                <!-- About Section -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">About Us</h3>
+                    <p class="text-gray-400 mb-4">We are dedicated to providing a seamless event registration experience. Our platform connects you with exciting events and opportunities to engage with like-minded individuals.</p>
+                    <p class="text-gray-400">For inquiries, please email us at <a href="mailto:support@eventregistrationapp.com" class="text-blue-400 hover:text-blue-300">support@eventregistrationapp.com</a>.</p>
+                </div>
 
-            <!-- Social Media Links -->
-            <div>
-                <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
-                <div class="flex justify-center md:justify-start space-x-4">
+                <!-- Navigation Links -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home" class="text-gray-400 hover:text-white">Home</a></li>
+                        <li><a href="#events" class="text-gray-400 hover:text-white">Events</a></li>
+                        <li><a href="#about" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="#contact" class="text-gray-400 hover:text-white">Contact</a></li>
+                    </ul>
+                </div>
+
+                <!-- Social Media Links -->
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Follow Us</h3>
+                    <div class="flex justify-center md:justify-start space-x-4">
                         <button href="/"
                                 class="group flex justify-center p-2 rounded-md drop-shadow-xl from-gray-800 bg-[#316FF6] text-white font-semibold hover:translate-y-3 hover:rounded-[50%] transition-all duration-500 hover:from-[#331029] hover:to-[#310413]">
                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -151,35 +157,35 @@
                             </svg>
                         </button>
                     </div>
+                </div>
+            </div>
+            <div class="text-center mt-8">
+                <p class="text-gray-400">&copy; 2024 EventRegistrationApp. All rights reserved.</p>
             </div>
         </div>
-        <div class="text-center mt-8">
-            <p class="text-gray-400">&copy; 2024 EventRegistrationApp. All rights reserved.</p>
-        </div>
-    </div>
-</footer>
-
+    </footer>
 </div>
+
 
 @code {
     private List<MyDataType> events;
 
     protected override async Task OnInitializedAsync()
     {
-        events = await ApiService.GetDataAsync();
+        events = (await ApiService.GetDataAsync()).Take(6).ToList();
     }
+
     private void NavigateToRegister()
     {
         NavigationManager.NavigateTo("/register");
     }
 
-    private async Task BookEvent(int eventId)
+    private void BookEvent(int eventId)
     {
-        // Redirect to booking page with the eventId
-        Navigation.NavigateTo($"/book-event/{eventId}");
+        NavigationManager.NavigateTo($"/book-event/{eventId}");
     }
-
 
     [Inject]
     private NavigationManager NavigationManager { get; set; }
 }
+

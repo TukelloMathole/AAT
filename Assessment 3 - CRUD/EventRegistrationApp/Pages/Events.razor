@@ -3,15 +3,15 @@
 @inject ApiService ApiService
 @inject NavigationManager Navigation
 
-<section class="bg-gray-50 py-5">
-    <h2 class="text-5xl font-extrabold text-center mb-12 text-gray-800">Upcoming Events</h2>
+<section class="bg-gray-50 py-8">
+    <h2 class="text-4xl font-bold text-center mb-10 text-gray-800">Upcoming Events</h2>
 
-    <div class="mb-6 flex justify-center gap-4">
+    <div class="mb-8 flex justify-center gap-6">
         <!-- Search Bar -->
-        <input type="text" placeholder="Search events..." class="px-4 py-2 border border-gray-300 rounded-lg shadow-sm" @bind="searchQuery" @oninput="OnSearchQueryChanged" />
+        <input type="text" placeholder="Search events..." class="px-4 py-2 border border-gray-300 rounded-lg shadow-sm text-sm" @bind="searchQuery" @oninput="OnSearchQueryChanged" />
 
         <!-- Filter Dropdown -->
-        <select class="px-4 py-2 border border-gray-300 rounded-lg shadow-sm" @bind="selectedCategory">
+        <select class="px-4 py-2 border border-gray-300 rounded-lg shadow-sm text-sm" @bind="selectedCategory">
             <option value="">All Categories</option>
             @foreach (var category in Categories)
             {
@@ -20,29 +20,30 @@
         </select>
     </div>
 
-    <div class="max-w-4xl mx-auto grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+    <div class="max-w-5xl mx-auto grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
         @if (events == null)
         {
-            <p><em>Loading...</em></p>
+            <p class="text-center"><em>Loading...</em></p>
         }
         else if (FilteredEvents.Any() == false)
         {
-            <p><em>No upcoming events</em></p>
+            <p class="text-center"><em>No upcoming events</em></p>
         }
         else
         {
             @foreach (var eventItem in FilteredEvents)
             {
-                <div class="bg-white shadow-lg rounded-lg overflow-hidden transition-transform transform hover:scale-105 flex flex-col">
-                    <!-- <img src="@eventItem.Image" alt="@eventItem.EventName" class="w-full h-40 object-cover"> -->
-                    <div class="p-6 flex flex-col flex-grow">
-                        <h3 class="text-2xl font-semibold mb-2">@eventItem.EventName</h3>
+                <div class="bg-white shadow-md rounded-lg overflow-hidden transition-transform transform hover:scale-105 p-6 flex flex-col">
+                    <!-- Uncomment if you have images -->
+                    <!-- <img src="@eventItem.Image" alt="@eventItem.EventName" class="w-full h-40 object-cover mb-4"> -->
+                    <div class="flex flex-col flex-grow">
+                        <h3 class="text-xl font-semibold mb-2">@eventItem.EventName</h3>
                         <p class="text-gray-600 mb-2">Date: @eventItem.EventDate.ToString("d MMM yyyy")</p>
                         <p class="text-gray-600 mb-2">Location: @eventItem.Location</p>
                         <p class="text-gray-600 mb-2">Time: @eventItem.EventTime</p>
-                        <p class="text-gray-600 mb-4">Available Seats: @eventItem.AvailableSeats</p>
-                        <p class="text-gray-700 flex-grow">@eventItem.Description</p>
-                        <button @onclick="() => BookEvent(eventItem.EventId)" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out mt-4">
+                        <p class="text-gray-600 mb-2">Available Seats: @eventItem.AvailableSeats</p>
+                        <p class="text-gray-700 flex-grow text-sm mb-4">@eventItem.Description</p>
+                        <button @onclick="() => BookEvent(eventItem.EventId)" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-150 ease-in-out">
                             Book Now
                         </button>
                     </div>
@@ -51,6 +52,8 @@
         }
     </div>
 </section>
+
+
 
 @code {
     private List<MyDataType> events = new();
