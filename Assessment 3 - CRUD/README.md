@@ -90,6 +90,13 @@ dotnet run
 
 The Blazor application will be available at https://localhost:7161/ by default.
 
+Admin Section Login
+
+To access the admin section of the application:
+
+    Email: admin@event.co.za
+    Password: password
+
 Configuration
 
     Web API: Configuration settings are located in appsettings.json. The database connection string for SQLite3 is set here.
