@@ -1,8 +1,18 @@
+Event Registration CRUD Application
 Overview
 
-This project contains Assessment 1,2,3. Below is an overview of each directory:
-
+This project contains three main assessments, each focused on different aspects of development. Below is an overview of each directory:
 Directory Structure
+
+    Assessment 1 - SQL: Focuses on SQL optimization and data processing. Includes a README.md file with instructions for reviewing and optimizing code related to large data processing.
+
+    Assessment 2 - Threading: Demonstrates multi-threading concepts by creating threads to pick random odd numbers and manage a global list. Contains a README.md file with details on the threading implementation.
+
+    Assessment 3 - CRUD: Implements a CRUD application with ASP.NET Core Web API and Blazor. Features include event management, user registration, and asynchronous business logic. This directory contains the following:
+        EventRegistrationApi: ASP.NET Core Web API project for handling event data.
+        EventRegistrationApp: Blazor application for the frontend user interface.
+
+Each directory has a README.md file with specific instructions and details relevant to that assessment.
 
 Assessment 1 - SQL
 
