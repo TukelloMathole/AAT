@@ -48,15 +48,27 @@ This assessment involves creating a small CRUD (Create, Read, Update, Delete) ap
 
 Features
 
-    Landing Page: Displays available events.
+    Landing Page: Displays a list of top events available for booking.
     Event Management:
-        Create, Read, Update, and Delete events.
+        Create: Add new events.
+        Read: View details of events.
+        Update: Modify existing events.
+        Delete: Remove events.
     User Registration:
-        Register for selected events.
-        Ensure that only events with available seats can be registered for.
+        Register for events with available seats.
         Prevent multiple registrations by the same user for an event.
         Assign a unique reference number to each registration.
-    Asynchronous API/Business Logic: Follow async/await .NET patterns.
+    Event Search and Filtering: Search and filter events based on various criteria.
+    Asynchronous API/Business Logic: Utilizes async/await .NET patterns for efficient processing.
+
+Admin Section Features
+
+The admin section allows for comprehensive event management through the following CRUD operations:
+
+    Create Event: Add new events to the system.
+    Read Event: View details of existing events.
+    Update Event: Modify details of existing events.
+    Delete Event: Remove events from the system.
 
 Implementation Details
 Project Structure
