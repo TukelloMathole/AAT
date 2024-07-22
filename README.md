@@ -26,8 +26,6 @@ Key Tasks Completed:
 
 Assessment 2 - Threading
 
-Last Updated: Jul 18, 2024
-
 This assessment involves creating a multi-threaded application where a thread picks random odd numbers and adds them to a global list. The following sections detail the task and provide a sample solution.
 Task
 
@@ -41,8 +39,6 @@ Requirements:
 
 
 Assessment 3 - CRUD
-
-Last Updated: Jul 22, 2024
 
 This assessment involves creating a small CRUD (Create, Read, Update, Delete) application using the following technology stack:
 
