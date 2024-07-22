@@ -1,4 +1,3 @@
-Event Registration CRUD Application
 Overview
 
 This project contains three main assessments, each focused on different aspects of development. Below is an overview of each directory:
